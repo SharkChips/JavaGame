@@ -1,6 +1,7 @@
 package CSGraphics;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,15 +21,15 @@ public class LogicEngine implements Runnable {
     private Player p;
     private Color bgColor = Color.WHITE;
 
-    Map<String, ArrayList<Sprite>> getShapes() {
+    public Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
     }
 
-    Color getBGColor() {
+    public Color getBGColor() {
 	return this.bgColor;
     }
 
-    Player getPlayer() {
+    public Player getPlayer() {
 	return p;
     }
 
@@ -134,19 +135,26 @@ public class LogicEngine implements Runnable {
 	    System.exit(1);
 	}
 
-	sprites.put("Squares", new ArrayList<Sprite>() {
+	File FollowerEntityTestSourceFile = new File("src/Data/Entity0.png");
+	sprites.put("GreenFollowerTest", new ArrayList<Sprite>() {
 	    {
+		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
+		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
+		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
+		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
+		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
 	    }
 	});
-	sprites.put("Ellipses", new ArrayList<Sprite>() {
+	sprites.put("OtherSprites", new ArrayList<Sprite>() {
 	    {
 	    }
 	});
     }
 
     private void doLogic() {
-	ArrayList<Sprite> squares = sprites.get("Squares");
-	for (Sprite s : squares) {
+	ArrayList<Sprite> greenFollowers = sprites.get("GreenFollowerTest");
+	for (Sprite s : greenFollowers) {
+	    s.doSpecialAction(p);
 	    if (s.intersects(p.getBounds())) {
 		System.out.println("Intersected!");
 	    }
@@ -158,6 +166,7 @@ public class LogicEngine implements Runnable {
      * 
      * @return A random color
      */
+    @SuppressWarnings("unused")
     private Color randomColor() {
 	return new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
     }

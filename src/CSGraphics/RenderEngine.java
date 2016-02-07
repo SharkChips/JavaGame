@@ -134,7 +134,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	// Here we handle drawing objects
 	for (ArrayList<Sprite> a : lg.getShapes().values()) {
 	    for (Sprite s : a) {
-		g.drawImage(s, s.getX(), s.getY(), null);
+		g.drawImage(s.getImage(), s.getX(), s.getY(), null);
 	    }
 	}
 

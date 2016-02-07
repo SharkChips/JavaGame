@@ -41,6 +41,10 @@ public class Sprite extends java.awt.Image {
 	}
     }
 
+    public void doSpecialAction(Object... objects) {
+	// This method is for each Sprite's special action (eg. following player)
+    }
+
     public int getX() {
 	return x;
     }
