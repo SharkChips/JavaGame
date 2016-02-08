@@ -5,7 +5,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -19,9 +18,9 @@ public class Sprite extends java.awt.Image {
 
     private int health = 1000;
 
-    public Sprite(File source) {
+    public Sprite(String imageSrc) {
 	try {
-	    image = ImageIO.read(source);
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(imageSrc));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
@@ -33,11 +32,11 @@ public class Sprite extends java.awt.Image {
 	image = null;
     }
 
-    public Sprite(int x, int y, File source) {
+    public Sprite(int x, int y, String source) {
 	this.x = x;
 	this.y = y;
 	try {
-	    image = ImageIO.read(source);
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(source));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}

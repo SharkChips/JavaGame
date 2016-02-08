@@ -3,27 +3,22 @@ package CSGraphics;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class Enemy extends Sprite {
 
     private static final int MOVE_SPEED = 2;
     private static final int DAMAGE_AMT = 2;
 
-    public static File image = new File("resources/Entity0.png");
+    private static final String DEFAULT_IMAGE = "Entity0.png";
 
     private Player p;
 
-    public Enemy(int x, int y, File source) {
-	super(x, y, source);
-    }
-
-    public Enemy(File source) {
+    public Enemy(String source) {
 	super((int) (Math.random() * Main.getFrames()[0].getWidth()), (int) (Math.random() * Main.getFrames()[0].getHeight()), source);
     }
 
     public Enemy() {
-	super((int) (Math.random() * Main.getFrames()[0].getWidth()), (int) (Math.random() * Main.getFrames()[0].getHeight()), image);
+	super((int) (Math.random() * Main.getFrames()[0].getWidth()), (int) (Math.random() * Main.getFrames()[0].getHeight()), DEFAULT_IMAGE);
     }
 
     @Override

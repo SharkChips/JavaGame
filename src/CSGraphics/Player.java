@@ -1,7 +1,6 @@
 package CSGraphics;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -33,7 +32,7 @@ public class Player extends Sprite {
 	super(x, y);
 	try {
 	    for (int a = 0; a < images.length; a++) {
-		images[a] = ImageIO.read(new File("resources/Player" + a + ".png"));
+		images[a] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Player" + a + ".png"));
 	    }
 	} catch (IOException e) {
 	    System.err.println("Error reading player images.");
