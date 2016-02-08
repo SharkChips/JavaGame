@@ -17,6 +17,8 @@ public class Sprite extends java.awt.Image {
     private int x;
     private int y;
 
+    private int health = 1000;
+
     public Sprite(File source) {
 	try {
 	    image = ImageIO.read(source);
@@ -43,6 +45,20 @@ public class Sprite extends java.awt.Image {
 
     public void doSpecialAction(Object... objects) {
 	// This method is for each Sprite's special action (eg. following player)
+	// By default it does nothing
+    }
+
+    public void onCollideWithPlayer(Object... objects) {
+	// This method is called when a sprite collides with the player
+	// By default if prints "Intersected" if Main.DEBUG is true
+    }
+
+    public int getHealth() {
+	return health;
+    }
+
+    public void setHealth(int health) {
+	this.health = health;
     }
 
     public int getX() {

@@ -2,12 +2,11 @@ package CSGraphics;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class Main extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-
-    static final int INITIAL_WIDTH = 800;
-    static final int INITIAL_HEIGHT = 600;
+    private static final int INITIAL_WIDTH = 800;
+    private static final int INITIAL_HEIGHT = 600;
     static final boolean DEBUG = true;
 
     public Main() {

@@ -10,7 +10,9 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class LogicEngine implements Runnable {
 
-    private static final int TICKS_PER_SECOND = 60;
+    private static final int TICKS_PER_SECOND = 30;
+    private static final int MAX_ENEMIES = 25;
+    private static final double DIFFICULTY = 0.02;
 
     private Thread runThread;
 
@@ -19,7 +21,7 @@ public class LogicEngine implements Runnable {
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private Player p;
-    private Color bgColor = Color.WHITE;
+    private Color bgColor = Color.RED;
 
     public Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
@@ -136,13 +138,13 @@ public class LogicEngine implements Runnable {
 	}
 
 	File FollowerEntityTestSourceFile = new File("src/Data/Entity0.png");
-	sprites.put("GreenFollowerTest", new ArrayList<Sprite>() {
+	sprites.put("Enemies", new ArrayList<Sprite>() {
 	    {
-		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
-		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
-		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
-		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
-		add(new FollowerEntityTest(FollowerEntityTestSourceFile));
+		add(new Enemy(FollowerEntityTestSourceFile));
+		add(new Enemy(FollowerEntityTestSourceFile));
+		add(new Enemy(FollowerEntityTestSourceFile));
+		add(new Enemy(FollowerEntityTestSourceFile));
+		add(new Enemy(FollowerEntityTestSourceFile));
 	    }
 	});
 	sprites.put("OtherSprites", new ArrayList<Sprite>() {
@@ -152,11 +154,22 @@ public class LogicEngine implements Runnable {
     }
 
     private void doLogic() {
-	ArrayList<Sprite> greenFollowers = sprites.get("GreenFollowerTest");
-	for (Sprite s : greenFollowers) {
-	    s.doSpecialAction(p);
+	if (p.getHealth() < 0) {
+	    System.out.println("You lost!");
+	    System.exit(0);
+	}
+
+	ArrayList<Sprite> enemies = sprites.get("Enemies");
+
+	// Spawns more enemies if there can be more
+	if (Math.random() < DIFFICULTY && enemies.size() < MAX_ENEMIES) {
+	    enemies.add(new Enemy());
+	}
+
+	for (Sprite s : enemies) {
+	    s.doSpecialAction(p); // This line moves moves them towards player
 	    if (s.intersects(p.getBounds())) {
-		System.out.println("Intersected!");
+		s.onCollideWithPlayer(p); // Subtracts health from player
 	    }
 	}
     }
