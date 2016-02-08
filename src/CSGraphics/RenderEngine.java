@@ -152,7 +152,7 @@ public class RenderEngine extends JPanel implements Runnable {
 
 		// If DEBUG, draw hitboxes and add 1 to sprites
 		if (Main.DEBUG) {
-		    g.setColor(new Color(0, 255, 0, 200));
+		    g.setColor(new Color(0, 255, 0, 50));
 		    g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
 		    sprites++;
 		}
@@ -171,7 +171,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	g.setColor(Color.BLUE);
 	g.drawString("Health: " + lg.getPlayer().getHealth(), 10, 20);
 
-	if (Main.DEBUG && (System.currentTimeMillis() - startMS) > 1000) { // If Main.DEBUG draw fps
+	if ((System.currentTimeMillis() - startMS) > 1000) { // If Main.DEBUG draw fps
 	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), Main.getWindows()[0].getWidth() - 100, 20);
 	    g.drawString("Entities: " + (sprites + 1), Main.getWindows()[0].getWidth() - 100, 40);
 	}

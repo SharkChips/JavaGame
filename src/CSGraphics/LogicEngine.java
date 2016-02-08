@@ -9,9 +9,9 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class LogicEngine implements Runnable {
 
-    private static final int TICKS_PER_SECOND = 30;
-    private static final int MAX_ENEMIES = 25;
-    private static final double DIFFICULTY = 0.02;
+    private static final int TICKS_PER_SECOND = 60;
+    private static final int MAX_ENEMIES = 1000;
+    private static final double DIFFICULTY = 0.05;
 
     private Thread runThread;
 
@@ -20,7 +20,7 @@ public class LogicEngine implements Runnable {
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private Player p;
-    private Color bgColor = Color.RED;
+    private Color bgColor = new Color(51, 102, 255);
 
     public Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
