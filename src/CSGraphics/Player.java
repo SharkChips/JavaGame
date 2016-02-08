@@ -33,7 +33,7 @@ public class Player extends Sprite {
 	super(x, y);
 	try {
 	    for (int a = 0; a < images.length; a++) {
-		images[a] = ImageIO.read(new File("src/Data/Player" + a + ".png"));
+		images[a] = ImageIO.read(new File("resources/Player" + a + ".png"));
 	    }
 	} catch (IOException e) {
 	    System.err.println("Error reading player images.");

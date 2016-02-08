@@ -1,7 +1,6 @@
 package CSGraphics;
 
 import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,14 +136,13 @@ public class LogicEngine implements Runnable {
 	    System.exit(1);
 	}
 
-	File FollowerEntityTestSourceFile = new File("src/Data/Entity0.png");
 	sprites.put("Enemies", new ArrayList<Sprite>() {
 	    {
-		add(new Enemy(FollowerEntityTestSourceFile));
-		add(new Enemy(FollowerEntityTestSourceFile));
-		add(new Enemy(FollowerEntityTestSourceFile));
-		add(new Enemy(FollowerEntityTestSourceFile));
-		add(new Enemy(FollowerEntityTestSourceFile));
+		add(new Enemy());
+		add(new Enemy());
+		add(new Enemy());
+		add(new Enemy());
+		add(new Enemy());
 	    }
 	});
 	sprites.put("OtherSprites", new ArrayList<Sprite>() {

@@ -10,7 +10,7 @@ public class Enemy extends Sprite {
     private static final int MOVE_SPEED = 2;
     private static final int DAMAGE_AMT = 2;
 
-    public static File image = new File("src/Data/Entity0.png");
+    public static File image = new File("resources/Entity0.png");
 
     private Player p;
 
