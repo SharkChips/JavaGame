@@ -13,8 +13,8 @@ public class Sprite extends java.awt.Image {
 
     private BufferedImage image;
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     private int health = 1000;
 
@@ -26,13 +26,13 @@ public class Sprite extends java.awt.Image {
 	}
     }
 
-    public Sprite(int x, int y) {
+    public Sprite(double x, double y) {
 	this.x = x;
 	this.y = y;
 	image = null;
     }
 
-    public Sprite(int x, int y, String source) {
+    public Sprite(double x, double y, String source) {
 	this.x = x;
 	this.y = y;
 	try {
@@ -47,7 +47,7 @@ public class Sprite extends java.awt.Image {
 	// By default it does nothing
     }
 
-    public void onCollideWithPlayer(Object... objects) {
+    public void onCollideWithEntity(Sprite collidedwith, Object... additionalObjs) {
 	// This method is called when a sprite collides with the player
 	// By default if prints "Intersected" if Main.DEBUG is true
     }
@@ -61,18 +61,18 @@ public class Sprite extends java.awt.Image {
     }
 
     public int getX() {
-	return x;
+	return (int) x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
 	this.x = x;
     }
 
     public int getY() {
-	return y;
+	return (int) y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
 	this.y = y;
     }
 

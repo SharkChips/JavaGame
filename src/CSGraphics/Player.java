@@ -28,7 +28,7 @@ public class Player extends Sprite {
 
     private Direction direction = Direction.NORTH;
 
-    public Player(int x, int y) throws IOException {
+    public Player(double x, double y) throws IOException {
 	super(x, y);
 	try {
 	    for (int a = 0; a < images.length; a++) {
@@ -113,5 +113,28 @@ public class Player extends Sprite {
 	setDirection(Direction.SW);
 	this.setY(this.getY() + amount);
 	this.setX(this.getX() - amount);
+    }
+
+    public static double dirToRad(Direction d) {
+	switch (d.getValue()) {
+	    case 0:
+		return Math.PI / 2;
+	    case 1:
+		return 3 * Math.PI / 2;
+	    case 2:
+		return 0;
+	    case 3:
+		return Math.PI;
+	    case 4:
+		return Math.PI / 4;
+	    case 5:
+		return 3 * Math.PI / 4;
+	    case 6:
+		return 7 * Math.PI / 4;
+	    case 7:
+		return 5 * Math.PI / 4;
+	    default:
+		throw new IllegalStateException("Direction not valid");
+	}
     }
 }

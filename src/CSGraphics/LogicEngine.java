@@ -1,6 +1,7 @@
 package CSGraphics;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +11,8 @@ import java.util.Map;
 public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
-    private static final int MAX_ENEMIES = 1000;
-    private static final double DIFFICULTY = 0.05;
+    private static final int MAX_ENEMIES = 20;
+    private static final double DIFFICULTY = 0.02;
 
     private Thread runThread;
 
@@ -20,9 +21,10 @@ public class LogicEngine implements Runnable {
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private Player p;
-    private Color bgColor = new Color(51, 102, 255);
+    // private Color bgColor = new Color(0, 153, 255);
+    private Color bgColor = Color.WHITE;
 
-    public Map<String, ArrayList<Sprite>> getShapes() {
+    public synchronized Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
     }
 
@@ -45,7 +47,7 @@ public class LogicEngine implements Runnable {
 	isRunning = true;
 	isPaused = false;
 	if (runThread == null || !runThread.isAlive())
-	    runThread = new Thread(this);
+	    runThread = new Thread(this, "Logic-1");
 	else if (runThread.isAlive())
 	    throw new IllegalStateException("Logic Thread has already started.");
 	runThread.start();
@@ -106,8 +108,10 @@ public class LogicEngine implements Runnable {
 
 	    try { // Sleep for required amount of time to maintain TICKS_PER_SECOND
 		amountToSleep = (int) (1000 / TICKS_PER_SECOND) - (System.currentTimeMillis() - timeBefore);
+		System.out.println(amountToSleep);
 		Thread.sleep(amountToSleep > 0 ? amountToSleep : 0); // Sleep for 'amountToSleep' or 0, whichever is greater.
 	    } catch (InterruptedException ex) {
+		System.err.println("hg");
 		ex.printStackTrace();
 	    }
 
@@ -139,13 +143,9 @@ public class LogicEngine implements Runnable {
 	sprites.put("Enemies", new ArrayList<Sprite>() {
 	    {
 		add(new Enemy());
-		add(new Enemy());
-		add(new Enemy());
-		add(new Enemy());
-		add(new Enemy());
 	    }
 	});
-	sprites.put("OtherSprites", new ArrayList<Sprite>() {
+	sprites.put("Projectiles", new ArrayList<Sprite>() {
 	    {
 	    }
 	});
@@ -154,20 +154,43 @@ public class LogicEngine implements Runnable {
     private void doLogic() {
 	if (p.getHealth() < 0) {
 	    System.out.println("You lost!");
-	    System.exit(0);
+	    this.pause();
 	}
 
-	ArrayList<Sprite> enemies = sprites.get("Enemies");
+	ArrayList<Sprite> enemies = (ArrayList<Sprite>) sprites.get("Enemies");
+	ArrayList<Sprite> projectiles = sprites.get("Projectiles");
 
 	// Spawns more enemies if there can be more
 	if (Math.random() < DIFFICULTY && enemies.size() < MAX_ENEMIES) {
 	    enemies.add(new Enemy());
 	}
 
-	for (Sprite s : enemies) {
+	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
+	for (int index = 0; index < enemies.size(); index++) {
+	    Sprite s = enemies.get(index);
+	    if (s.getHealth() < 0) { // Removes dead enemies
+		enemies.remove(index);
+	    }
+
 	    s.doSpecialAction(p); // This line moves moves them towards player
-	    if (s.intersects(p.getBounds())) {
-		s.onCollideWithPlayer(p); // Subtracts health from player
+
+	    if (s.intersects(pBounds)) { // TODO: Find out why this line takes 10+ ms
+		s.onCollideWithEntity(p); // Subtract player health if collides with player
+	    }
+	}
+
+	Rectangle2D window = new Rectangle2D.Double(0, 0, Main.getWindows()[0].getWidth(), Main.getWindows()[0].getHeight());
+	for (int index = 0; index < projectiles.size(); index++) {
+	    Sprite proj = projectiles.get(index);
+	    proj.doSpecialAction(p);
+	    for (Sprite en : enemies) {
+		if (proj.intersects(en.getBounds())) {
+		    proj.onCollideWithEntity(en);
+		    projectiles.remove(proj);
+		}
+	    }
+	    if (!proj.intersects(window)) {
+		projectiles.remove(index);
 	    }
 	}
     }

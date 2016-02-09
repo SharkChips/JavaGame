@@ -40,7 +40,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	isRunning = true;
 	isPaused = false;
 	if (runThread == null || !runThread.isAlive())
-	    runThread = new Thread(this);
+	    runThread = new Thread(this, "Render-1");
 	else if (runThread.isAlive())
 	    throw new IllegalStateException("Render Thread has already started.");
 	runThread.start();
@@ -146,17 +146,21 @@ public class RenderEngine extends JPanel implements Runnable {
 
 	setBackground(lg.getBGColor());
 	// Here we handle drawing objects
-	for (ArrayList<Sprite> a : lg.getShapes().values()) {
-	    for (Sprite s : a) {
-		g.drawImage(s.getImage(), s.getX(), s.getY(), null);
+	try { // Surround in try to catch ConcurrentModificationExceptions and throw them away
+	    for (ArrayList<Sprite> a : lg.getShapes().values()) {
+		for (Sprite s : a) {
+		    g.drawImage(s.getImage(), s.getX(), s.getY(), null);
 
-		// If DEBUG, draw hitboxes and add 1 to sprites
-		if (Main.DEBUG) {
-		    g.setColor(new Color(0, 255, 0, 50));
-		    g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-		    sprites++;
+		    // If DEBUG, draw hitboxes and add 1 to sprites
+		    if (Main.DEBUG) {
+			g.setColor(new Color(0, 255, 0, 50));
+			g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+			sprites++;
+		    }
 		}
 	    }
+	} catch (Exception e) {
+	    // Do nothing because ConcurrentModificationExceptions don't matter
 	}
 
 	// Draw player

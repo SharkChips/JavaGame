@@ -40,8 +40,8 @@ public class Enemy extends Sprite {
     }
 
     @Override
-    public void onCollideWithPlayer(Object... objects) {
-	Player p = (Player) objects[0];
+    public void onCollideWithEntity(Sprite s, Object... objects) {
+	Player p = (Player) s;
 	p.setHealth(p.getHealth() - DAMAGE_AMT);
     }
 

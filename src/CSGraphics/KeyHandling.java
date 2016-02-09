@@ -3,6 +3,7 @@ package CSGraphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 public class KeyHandling implements Runnable, KeyListener {
 
@@ -41,7 +42,7 @@ public class KeyHandling implements Runnable, KeyListener {
 	isRunning = true;
 	isPaused = false;
 	if (runThread == null || !runThread.isAlive())
-	    runThread = new Thread(this);
+	    runThread = new Thread(this, "KeyHandle-1");
 	else if (runThread.isAlive())
 	    throw new IllegalStateException("Render Thread has already started.");
 	runThread.start();
@@ -169,6 +170,11 @@ public class KeyHandling implements Runnable, KeyListener {
 		break;
 	    case KeyEvent.VK_D:
 		dPressed = false;
+		break;
+	    case KeyEvent.VK_SPACE:
+		ArrayList<Sprite> projectiles = l.getShapes().get("Projectiles");
+		Player p = l.getPlayer();
+		projectiles.add(new Projectile(p.getX(), p.getY(), Player.dirToRad(p.getDirection())));
 		break;
 	    default:
 		break;
