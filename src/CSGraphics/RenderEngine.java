@@ -146,21 +146,18 @@ public class RenderEngine extends JPanel implements Runnable {
 
 	setBackground(lg.getBGColor());
 	// Here we handle drawing objects
-	try { // Surround in try to catch ConcurrentModificationExceptions and throw them away
-	    for (ArrayList<Sprite> a : lg.getShapes().values()) {
-		for (Sprite s : a) {
-		    g.drawImage(s.getImage(), s.getX(), s.getY(), null);
+	for (ArrayList<Sprite> a : lg.getShapes().values()) {
+	    for (int index = 0; index < a.size(); index++) {
+		Sprite s = a.get(index);
+		g.drawImage(s.getImage(), s.getX(), s.getY(), null);
 
-		    // If DEBUG, draw hitboxes and add 1 to sprites
-		    if (Main.DEBUG) {
-			g.setColor(new Color(0, 255, 0, 50));
-			g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-			sprites++;
-		    }
+		// If DEBUG, draw hitboxes and add 1 to sprites
+		if (Main.DEBUG) {
+		    g.setColor(new Color(0, 255, 0, 50));
+		    g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+		    sprites++;
 		}
 	    }
-	} catch (Exception e) {
-	    // Do nothing because ConcurrentModificationExceptions don't matter
 	}
 
 	// Draw player

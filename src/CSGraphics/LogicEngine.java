@@ -11,8 +11,8 @@ import java.util.Map;
 public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
-    private static final int MAX_ENEMIES = 20;
-    private static final double DIFFICULTY = 0.02;
+    private static final int MAX_ENEMIES = 35;
+    private static final double DIFFICULTY = 0.03;
 
     private Thread runThread;
 
@@ -108,7 +108,6 @@ public class LogicEngine implements Runnable {
 
 	    try { // Sleep for required amount of time to maintain TICKS_PER_SECOND
 		amountToSleep = (int) (1000 / TICKS_PER_SECOND) - (System.currentTimeMillis() - timeBefore);
-		System.out.println(amountToSleep);
 		Thread.sleep(amountToSleep > 0 ? amountToSleep : 0); // Sleep for 'amountToSleep' or 0, whichever is greater.
 	    } catch (InterruptedException ex) {
 		System.err.println("hg");
@@ -166,6 +165,8 @@ public class LogicEngine implements Runnable {
 	}
 
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
+	int pX = p.getX();
+	int pY = p.getY();
 	for (int index = 0; index < enemies.size(); index++) {
 	    Sprite s = enemies.get(index);
 	    if (s.getHealth() < 0) { // Removes dead enemies
@@ -174,8 +175,11 @@ public class LogicEngine implements Runnable {
 
 	    s.doSpecialAction(p); // This line moves moves them towards player
 
-	    if (s.intersects(pBounds)) { // TODO: Find out why this line takes 10+ ms
-		s.onCollideWithEntity(p); // Subtract player health if collides with player
+	    // The following line optimizes collision detection. It decreases time by up to 8 ms.
+	    if (Math.abs(s.getX() - pX) < 100 && Math.abs(s.getY() - pY) < 100) {
+		if (s.intersects(pBounds)) {
+		    s.onCollideWithEntity(p); // Subtract player health if collides with player
+		}
 	    }
 	}
 
@@ -183,13 +187,18 @@ public class LogicEngine implements Runnable {
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
 	    proj.doSpecialAction(p);
+	    int projX = proj.getX();
+	    int projY = proj.getY();
 	    for (Sprite en : enemies) {
-		if (proj.intersects(en.getBounds())) {
-		    proj.onCollideWithEntity(en);
-		    projectiles.remove(proj);
+		if (Math.abs(projX - en.getX()) < 100 && Math.abs(projY - en.getY()) < 100) {
+		    if (proj.intersects(en.getBounds())) {
+			proj.onCollideWithEntity(en); // Subtract player health if collides with player
+			projectiles.remove(index);
+			break;
+		    }
 		}
 	    }
-	    if (!proj.intersects(window)) {
+	    if (!proj.intersects(window)) { // Removes projectiles that are out of bounds
 		projectiles.remove(index);
 	    }
 	}

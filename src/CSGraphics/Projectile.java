@@ -8,7 +8,7 @@ public class Projectile extends Sprite {
 
     private static final String DEFAULT_IMAGE = "Entity1.png";
     private static final int DAMAGE_AMT = 1001;
-    private static final int MOV_SPEED = 7;
+    private static final int MOV_SPEED = 8;
 
     private double theta = 0.0;
 
