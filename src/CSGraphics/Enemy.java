@@ -48,7 +48,12 @@ public class Enemy extends Sprite {
     public BufferedImage getImage() {
 	BufferedImage orig = super.getImage();
 	AffineTransform transform = new AffineTransform();
-	double angle = Math.atan2(p.getY() - this.getY(), p.getX() - this.getX());
+	double angle = 0d;
+	try { // Must surround in try/catch because occasionally
+	    angle = Math.atan2(p.getY() - this.getY(), p.getX() - this.getX());
+	} catch (NullPointerException n) {
+	    // Do nothing because these don't matter
+	}
 	transform.rotate(angle + Math.PI / 2, orig.getWidth() / 2, orig.getHeight() / 2);
 	AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 	return op.filter(orig, null);
