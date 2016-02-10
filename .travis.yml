@@ -3,4 +3,6 @@ jdk:
   - oraclejdk8
   
 script:
-  - ant JavaGame
+  - ant init-eclipse-compiler
+  - ant build-eclipse-compiler
+  - ant com.albertzhang.javagame.Launcher
