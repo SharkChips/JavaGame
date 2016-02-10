@@ -12,7 +12,7 @@ public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
     private static final int MAX_ENEMIES = 100;
-    private static final double DIFFICULTY = 0.03;
+    private static final double BASE_DIFFICULTY = 0.03;
 
     private Thread runThread;
 
@@ -22,6 +22,7 @@ public class LogicEngine implements Runnable {
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private Player p;
+    private int difficulty = 1;
 
     private Color bgColor = Color.WHITE;
 
@@ -29,7 +30,8 @@ public class LogicEngine implements Runnable {
 	initSprites();
     }
 
-    public LogicEngine(boolean debug) {
+    public LogicEngine(int difficulty, boolean debug) {
+	this.difficulty = difficulty;
 	DEBUG = debug;
 	initSprites();
     }
@@ -44,6 +46,10 @@ public class LogicEngine implements Runnable {
 
     public Player getPlayer() {
 	return p;
+    }
+
+    public int getDifficulty() {
+	return this.difficulty;
     }
 
     /**
@@ -147,7 +153,7 @@ public class LogicEngine implements Runnable {
 
 	sprites.put("Enemies", new ArrayList<Sprite>() {
 	    {
-		add(new Enemy());
+		add(new Enemy(difficulty));
 	    }
 	});
 	sprites.put("Projectiles", new ArrayList<Sprite>() {
@@ -166,8 +172,8 @@ public class LogicEngine implements Runnable {
 	ArrayList<Sprite> projectiles = sprites.get("Projectiles");
 
 	// Spawns more enemies if there can be more
-	if (Math.random() < DIFFICULTY && enemies.size() < MAX_ENEMIES) {
-	    enemies.add(new Enemy());
+	if (Math.random() < BASE_DIFFICULTY * this.getDifficulty() && enemies.size() < MAX_ENEMIES) {
+	    enemies.add(new Enemy(difficulty));
 	}
 
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player

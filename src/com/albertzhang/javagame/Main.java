@@ -10,17 +10,17 @@ public class Main extends JFrame {
 	setSize(width, height);
 
 	// Instantiates LogicEngine
-	LogicEngine logic = new LogicEngine();
+	LogicEngine logic = new LogicEngine(difficulty + 1, logicDebug); // +1 because launcher goes from 0 to 3
 	logic.start();
 
 	// Makes new RenderEngine and gives tells it to render a LogicEngine
-	RenderEngine render = new RenderEngine(logic);
+	RenderEngine render = new RenderEngine(logic, graphicsDebug);
 	render.start();
 
 	getContentPane().add(render); // Add render to frame
 
 	// Instantiates KeyHandlingEngine and activates it
-	KeyHandling keyHandlingEngine = new KeyHandling(logic);
+	KeyHandling keyHandlingEngine = new KeyHandling(logic, keyDebug);
 	keyHandlingEngine.start();
 	addKeyListener(keyHandlingEngine);
 
