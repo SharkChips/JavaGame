@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
-    private static final int MAX_ENEMIES = 50;
+    private static final int MAX_ENEMIES = 40;
     private static final double BASE_DIFFICULTY = 0.01;
 
     private Thread runThread;
@@ -124,7 +124,6 @@ public class LogicEngine implements Runnable {
 		amountToSleep = (int) (1000 / TICKS_PER_SECOND) - (System.currentTimeMillis() - timeBefore);
 		Thread.sleep(amountToSleep > 0 ? amountToSleep : 0); // Sleep for 'amountToSleep' or 0, whichever is greater.
 	    } catch (InterruptedException ex) {
-		System.err.println("hg");
 		ex.printStackTrace();
 	    }
 
@@ -199,8 +198,8 @@ public class LogicEngine implements Runnable {
 	    s.doSpecialAction(p); // This line moves moves them towards player
 
 	    // The following line optimizes collision detection. It decreases time by up to 8 ms.
-	    // 64 is the max distance between 2 touching 64px square sprites. TODO: Change this if sprite sizes change
-	    if (Math.abs(s.getX() - pX) < 64 && Math.abs(s.getY() - pY) < 64) {
+	    // 91 is the max distance between 2 touching 64px square sprites. TODO: Change this if sprite sizes change
+	    if (Math.abs(s.getX() - pX) < 91 && Math.abs(s.getY() - pY) < 91) {
 		if (s.intersects(pBounds)) {
 		    s.onCollideWithEntity(p); // Subtract player health if collides with player
 		}
@@ -214,8 +213,8 @@ public class LogicEngine implements Runnable {
 	    int projX = proj.getX();
 	    int projY = proj.getY();
 	    for (Sprite en : enemies) {
-		// 64 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
-		if (Math.abs(projX - en.getX()) < 64 && Math.abs(projY - en.getY()) < 64) {
+		// 46 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
+		if (Math.abs(projX - en.getX()) < 46 && Math.abs(projY - en.getY()) < 46) {
 		    if (proj.intersects(en.getBounds())) {
 			proj.onCollideWithEntity(en); // Subtract player health if collides with player
 			projectiles.remove(index);
