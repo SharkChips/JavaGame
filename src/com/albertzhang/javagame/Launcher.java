@@ -21,7 +21,11 @@ public class Launcher {
 
     private JFrame frame;
 
-    public static final String NAME = "To Be Named";
+    private static final String NAME = "To Be Named";
+
+    public static String getName() {
+	return NAME;
+    }
 
     /**
      * Launch the application.

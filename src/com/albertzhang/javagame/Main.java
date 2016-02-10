@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 public class Main extends JFrame {
 
     public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug) {
-	super("Window"); // prints title in title bar of window
+	super(Launcher.getName()); // prints title in title bar of window
 	setSize(width, height);
 
 	// Instantiates LogicEngine

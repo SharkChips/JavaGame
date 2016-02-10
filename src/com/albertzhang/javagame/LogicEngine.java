@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 @SuppressWarnings("serial")
 public class LogicEngine implements Runnable {
 
@@ -164,8 +166,16 @@ public class LogicEngine implements Runnable {
 
     private void doLogic() {
 	if (p.getHealth() < 0) {
+	    p.setHealth(0); // This prevents the user from seeing health be negative
 	    System.out.println("You lost!");
+	    JOptionPane.showMessageDialog(Main.getWindows()[1], "You lost!");
 	    this.pause();
+	    if (JOptionPane.showConfirmDialog(Main.getWindows()[1], "Would you like to play again?") == JOptionPane.YES_OPTION) {
+		this.initSprites();
+		this.resume();
+	    } else {
+		System.exit(0);
+	    }
 	}
 
 	ArrayList<Sprite> enemies = (ArrayList<Sprite>) sprites.get("Enemies");
