@@ -3,6 +3,8 @@
   <groupId>JavaGame</groupId>
   <artifactId>JavaGame</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <name>JavaGame</name>
+  <description>A JavaGame</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
@@ -13,7 +15,6 @@
         </excludes>
       </resource>
     </resources>
-	<pluginManagement>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -24,6 +25,9 @@
         </configuration>
       </plugin>
     </plugins>
-	</pluginManagement>
   </build>
+  <properties>
+  	<source>1.8</source>
+  	<target>1.8</target>
+  </properties>
 </project>
