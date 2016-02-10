@@ -15,6 +15,7 @@ public class RenderEngine extends JPanel implements Runnable {
 
     private boolean isRunning = false;
     private boolean isPaused = false;
+    private boolean DEBUG = false;
 
     private static final int FRAMES_PER_SECOND = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getRefreshRate();
     private static LogicEngine lg;
@@ -23,10 +24,14 @@ public class RenderEngine extends JPanel implements Runnable {
     private long startMS = 0;
 
     public RenderEngine(LogicEngine logic) {
-	if (Main.DEBUG) { // If Main.DEBUG, record the starting timeF
+	lg = logic;
+    }
+
+    public RenderEngine(LogicEngine logic, boolean debug) {
+	DEBUG = debug;
+	if (DEBUG) { // If Main.DEBUG, record the starting timeF
 	    startMS = System.currentTimeMillis();
 	}
-
 	lg = logic;
     }
 
@@ -98,17 +103,21 @@ public class RenderEngine extends JPanel implements Runnable {
     }
 
     public void run() {
-	if (Main.DEBUG)
+	if (DEBUG)
 	    System.out.println("Running at VSync: " + FRAMES_PER_SECOND + " FPS");
 
 	long amountToSleep = 0, timeBeforePainting;
 	while (isRunning) {
 	    timeBeforePainting = System.currentTimeMillis();
 
-	    repaint(); // Renders the frame\
+	    repaint(); // Renders the frame
 
-	    if (Main.DEBUG) {
+	    if (DEBUG) {
 		frames++;
+		if (frames > FRAMES_PER_SECOND) {
+		    frames = 0;
+		    startMS = System.currentTimeMillis();
+		}
 	    }
 
 	    try { // Sleep for required amount of time to maintain FRAMES_PER_SECOND
@@ -137,7 +146,7 @@ public class RenderEngine extends JPanel implements Runnable {
 
 	super.paintComponent(graphics);
 	if (graphics == null) {
-	    if (Main.DEBUG)
+	    if (DEBUG)
 		System.err.println("Graphics is null!");
 	    return;
 	}
@@ -152,7 +161,7 @@ public class RenderEngine extends JPanel implements Runnable {
 		g.drawImage(s.getImage(), s.getX(), s.getY(), null);
 
 		// If DEBUG, draw hitboxes and add 1 to sprites
-		if (Main.DEBUG) {
+		if (DEBUG) {
 		    g.setColor(new Color(0, 255, 0, 50));
 		    g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
 		    sprites++;
@@ -163,7 +172,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	// Draw player
 	g.drawImage(lg.getPlayer().getImage(), lg.getPlayer().getX(), lg.getPlayer().getY(), null);
 
-	if (Main.DEBUG) { // If DEBUG, display hitboxes
+	if (DEBUG) { // If DEBUG, display hitboxes
 	    g.setColor(new Color(0, 0, 255, 50));
 	    g.drawRect(lg.getPlayer().getX(), lg.getPlayer().getY(), lg.getPlayer().getWidth(), lg.getPlayer().getHeight());
 	}
@@ -173,8 +182,8 @@ public class RenderEngine extends JPanel implements Runnable {
 	g.drawString("Health: " + lg.getPlayer().getHealth(), 10, 20);
 
 	if ((System.currentTimeMillis() - startMS) > 1000) { // If Main.DEBUG draw fps
-	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), Main.getWindows()[0].getWidth() - 100, 20);
-	    g.drawString("Entities: " + (sprites + 1), Main.getWindows()[0].getWidth() - 100, 40);
+	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), Main.getWindows()[1].getWidth() - 100, 20);
+	    g.drawString("Entities: " + (sprites + 1), Main.getWindows()[1].getWidth() - 100, 40);
 	}
     }
 }

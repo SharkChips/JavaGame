@@ -15,6 +15,7 @@ public class KeyHandling implements Runnable, KeyListener {
 
     private boolean isRunning = false;
     private boolean isPaused = false;
+    private boolean DEBUG = false;
 
     private static final int HANDLES_PER_SECOND = 60;
 
@@ -30,6 +31,11 @@ public class KeyHandling implements Runnable, KeyListener {
 
     public KeyHandling(LogicEngine lg) {
 	l = lg;
+    }
+
+    public KeyHandling(LogicEngine lg, boolean debug) {
+	l = lg;
+	DEBUG = debug;
     }
 
     /**
@@ -100,7 +106,7 @@ public class KeyHandling implements Runnable, KeyListener {
     }
 
     public void run() {
-	if (Main.DEBUG)
+	if (DEBUG)
 	    System.out.println("Key Handling running at: " + HANDLES_PER_SECOND + " times per second");
 
 	long amountToSleep = 0, timeBefore;
@@ -174,7 +180,8 @@ public class KeyHandling implements Runnable, KeyListener {
 	    case KeyEvent.VK_SPACE:
 		ArrayList<Sprite> projectiles = l.getShapes().get("Projectiles");
 		Player p = l.getPlayer();
-		projectiles.add(new Projectile(p.getX(), p.getY(), Player.dirToRad(p.getDirection())));
+		// TODO: change 16 to half the final sprite's width
+		projectiles.add(new Projectile(p.getX() + p.getWidth() / 2 - 16, p.getY() + p.getHeight() / 2 - 16, Player.dirToRad(p.getDirection())));
 		break;
 	    default:
 		break;
@@ -233,11 +240,11 @@ public class KeyHandling implements Runnable, KeyListener {
 
     private Bounds checkBounds() {
 	Player p = l.getPlayer();
-	Rectangle2D top = new Rectangle2D.Double(-10, -10, Main.getWindows()[0].getWidth() + 20, 10);
-	Rectangle2D bottom = new Rectangle2D.Double(-10, Main.getWindows()[0].getHeight() - p.getHeight() / 2, Main.getWindows()[0].getWidth() + 20, 10);
-	Rectangle2D left = new Rectangle2D.Double(-10, -10, 10, Main.getWindows()[0].getHeight() + 20);
+	Rectangle2D top = new Rectangle2D.Double(-10, -10, Main.getWindows()[1].getWidth() + 20, 10);
+	Rectangle2D bottom = new Rectangle2D.Double(-10, Main.getWindows()[1].getHeight() - p.getHeight() / 2, Main.getWindows()[1].getWidth() + 20, 10);
+	Rectangle2D left = new Rectangle2D.Double(-10, -10, 10, Main.getWindows()[1].getHeight() + 20);
 	// TODO: remove the "-10" when we get new pictures
-	Rectangle2D right = new Rectangle2D.Double(Main.getWindows()[0].getWidth() - 10, -10, 10, Main.getWindows()[0].getHeight() + 10);
+	Rectangle2D right = new Rectangle2D.Double(Main.getWindows()[1].getWidth() - 10, -10, 10, Main.getWindows()[1].getHeight() + 10);
 
 	if (p.getBounds().intersects(top)) {
 	    if (p.getBounds().intersects(left)) {

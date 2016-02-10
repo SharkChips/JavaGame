@@ -7,9 +7,8 @@ public class Main extends JFrame {
 
     private static final int INITIAL_WIDTH = 800;
     private static final int INITIAL_HEIGHT = 600;
-    static final boolean DEBUG = true;
 
-    public Main() {
+    public Main(int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug) {
 	super("Window"); // prints title in title bar of window
 	setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
 
@@ -32,7 +31,4 @@ public class Main extends JFrame {
 	setVisible(true);
     }
 
-    public static void main(String args[]) {
-	new Main();
-    }
 }

@@ -18,11 +18,21 @@ public class LogicEngine implements Runnable {
 
     private boolean isRunning = false;
     private boolean isPaused = false;
+    private boolean DEBUG = false;
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private Player p;
-    // private Color bgColor = new Color(0, 153, 255);
+
     private Color bgColor = Color.WHITE;
+
+    public LogicEngine() {
+	initSprites();
+    }
+
+    public LogicEngine(boolean debug) {
+	DEBUG = debug;
+	initSprites();
+    }
 
     public synchronized Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
@@ -34,10 +44,6 @@ public class LogicEngine implements Runnable {
 
     public Player getPlayer() {
 	return p;
-    }
-
-    public LogicEngine() {
-	initSprites();
     }
 
     /**
@@ -96,7 +102,7 @@ public class LogicEngine implements Runnable {
     }
 
     public void run() {
-	if (Main.DEBUG)
+	if (DEBUG)
 	    System.out.println("Logic running at: " + TICKS_PER_SECOND + " Ticks per second");
 
 	long amountToSleep = 0, timeBefore;
@@ -131,8 +137,8 @@ public class LogicEngine implements Runnable {
     private void initSprites() {
 	try {
 	    p = new Player(0, 0); // Make a new player to initialize the image so we can set X and Y appropriately
-	    p.setX(Main.getWindows()[0].getWidth() / 2 - p.getWidth() / 2);
-	    p.setY(Main.getWindows()[0].getHeight() / 2 - p.getHeight() / 2);
+	    p.setX(Main.getWindows()[1].getWidth() / 2 - p.getWidth() / 2);
+	    p.setY(Main.getWindows()[1].getHeight() / 2 - p.getHeight() / 2);
 	} catch (IOException e) {
 	    System.err.println("Player image not found");
 	    e.printStackTrace();
@@ -184,7 +190,7 @@ public class LogicEngine implements Runnable {
 	    }
 	}
 
-	Rectangle2D window = new Rectangle2D.Double(0, 0, Main.getWindows()[0].getWidth(), Main.getWindows()[0].getHeight());
+	Rectangle2D window = new Rectangle2D.Double(0, 0, Main.getWindows()[1].getWidth(), Main.getWindows()[1].getHeight());
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
 	    proj.doSpecialAction(p);

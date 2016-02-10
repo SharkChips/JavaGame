@@ -14,11 +14,11 @@ public class Enemy extends Sprite {
     private Player p;
 
     public Enemy(String source) {
-	super((int) (Math.random() * Main.getFrames()[0].getWidth()), (int) (Math.random() * Main.getFrames()[0].getHeight()), source);
+	super((int) (Math.random() * Main.getFrames()[1].getWidth()), (int) (Math.random() * Main.getFrames()[1].getHeight()), source);
     }
 
     public Enemy() {
-	super((int) (Math.random() * Main.getFrames()[0].getWidth()), (int) (Math.random() * Main.getFrames()[0].getHeight()), DEFAULT_IMAGE);
+	super((int) (Math.random() * Main.getFrames()[1].getWidth()), (int) (Math.random() * Main.getFrames()[1].getHeight()), DEFAULT_IMAGE);
     }
 
     @Override
