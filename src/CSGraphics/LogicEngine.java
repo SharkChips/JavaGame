@@ -176,7 +176,7 @@ public class LogicEngine implements Runnable {
 	    s.doSpecialAction(p); // This line moves moves them towards player
 
 	    // The following line optimizes collision detection. It decreases time by up to 8 ms.
-	    // 91 is the max distance between 2 touching 64px square sprites. TODO: Change this if sprite sizes change
+	    // 64 is the max distance between 2 touching 64px square sprites. TODO: Change this if sprite sizes change
 	    if (Math.abs(s.getX() - pX) < 64 && Math.abs(s.getY() - pY) < 64) {
 		if (s.intersects(pBounds)) {
 		    s.onCollideWithEntity(p); // Subtract player health if collides with player
@@ -191,8 +191,8 @@ public class LogicEngine implements Runnable {
 	    int projX = proj.getX();
 	    int projY = proj.getY();
 	    for (Sprite en : enemies) {
-		// 68 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
-		if (Math.abs(projX - en.getX()) < 64 && Math.abs(projY - en.getY()) < 32) {
+		// 64 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
+		if (Math.abs(projX - en.getX()) < 64 && Math.abs(projY - en.getY()) < 64) {
 		    if (proj.intersects(en.getBounds())) {
 			proj.onCollideWithEntity(en); // Subtract player health if collides with player
 			// projectiles.remove(index);
