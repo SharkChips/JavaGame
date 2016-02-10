@@ -55,6 +55,12 @@ public class Launcher {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 	    e.printStackTrace();
+	    try {
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+	    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
+		// This probably won't happen
+		e1.printStackTrace();
+	    }
 	}
 	frame = new JFrame(NAME);
 	frame.setBounds(100, 100, 256, 400);
