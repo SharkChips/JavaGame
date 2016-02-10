@@ -54,11 +54,6 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="Main (2)">
-        <java classname="CSGraphics.Main" failonerror="true" fork="yes">
-            <classpath refid="JavaGame.classpath"/>
-        </java>
-    </target>
     <target name="Launcher">
         <java classname="com.albertzhang.javagame.Launcher" failonerror="true" fork="yes">
             <classpath refid="JavaGame.classpath"/>
