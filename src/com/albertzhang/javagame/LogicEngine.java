@@ -1,4 +1,4 @@
-package CSGraphics;
+package com.albertzhang.javagame;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
@@ -195,7 +195,7 @@ public class LogicEngine implements Runnable {
 		if (Math.abs(projX - en.getX()) < 64 && Math.abs(projY - en.getY()) < 64) {
 		    if (proj.intersects(en.getBounds())) {
 			proj.onCollideWithEntity(en); // Subtract player health if collides with player
-			// projectiles.remove(index);
+			projectiles.remove(index);
 			break;
 		    }
 		}

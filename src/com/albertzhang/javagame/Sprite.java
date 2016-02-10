@@ -1,4 +1,4 @@
-package CSGraphics;
+package com.albertzhang.javagame;
 
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;

@@ -1,4 +1,4 @@
-package CSGraphics;
+package com.albertzhang.javagame;
 
 import javax.swing.JFrame;
 

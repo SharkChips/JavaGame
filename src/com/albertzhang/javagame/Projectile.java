@@ -1,4 +1,4 @@
-package CSGraphics;
+package com.albertzhang.javagame;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;

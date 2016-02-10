@@ -1,4 +1,4 @@
-package CSGraphics;
+package com.albertzhang.javagame;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
