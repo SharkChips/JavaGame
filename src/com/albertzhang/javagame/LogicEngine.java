@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
-    private static final int MAX_ENEMIES = 100;
-    private static final double BASE_DIFFICULTY = 0.03;
+    private static final int MAX_ENEMIES = 50;
+    private static final double BASE_DIFFICULTY = 0.01;
 
     private Thread runThread;
 
