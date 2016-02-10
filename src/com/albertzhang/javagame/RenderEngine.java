@@ -114,10 +114,6 @@ public class RenderEngine extends JPanel implements Runnable {
 
 	    if (DEBUG) {
 		frames++;
-		if (frames > FRAMES_PER_SECOND) {
-		    frames = 0;
-		    startMS = System.currentTimeMillis();
-		}
 	    }
 
 	    try { // Sleep for required amount of time to maintain FRAMES_PER_SECOND
@@ -181,7 +177,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	g.setColor(Color.BLUE);
 	g.drawString("Health: " + lg.getPlayer().getHealth(), 10, 20);
 
-	if ((System.currentTimeMillis() - startMS) > 1000) { // If Main.DEBUG draw fps
+	if (DEBUG && (System.currentTimeMillis() - startMS) > 1000) { // If Main.DEBUG draw fps
 	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), Main.getWindows()[1].getWidth() - 100, 20);
 	    g.drawString("Entities: " + (sprites + 1), Main.getWindows()[1].getWidth() - 100, 40);
 	}
