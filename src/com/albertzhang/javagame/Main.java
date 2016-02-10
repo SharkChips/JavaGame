@@ -5,12 +5,9 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
-    private static final int INITIAL_WIDTH = 800;
-    private static final int INITIAL_HEIGHT = 600;
-
-    public Main(int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug) {
+    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug) {
 	super("Window"); // prints title in title bar of window
-	setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
+	setSize(width, height);
 
 	// Instantiates LogicEngine
 	LogicEngine logic = new LogicEngine();
