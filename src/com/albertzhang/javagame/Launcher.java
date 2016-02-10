@@ -192,6 +192,7 @@ public class Launcher {
 	playBtn.requestFocusInWindow();
 	playBtn.addActionListener(listener -> {
 	    new Main((int) width.getValue(), (int) height.getValue(), slider.getValue(), dbgGra.isSelected(), dbgLog.isSelected(), dbgKey.isSelected());
+	    this.frame.dispose();
 	});
     }
 }
