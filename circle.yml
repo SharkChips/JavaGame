@@ -1,17 +1,3 @@
-sudo: false
-language: java
-jdk:
-- oraclejdk8
-script:
-- ant jar
-deploy:
-  provider: releases
-  api_key:
-    secure: gnwF07RwqcD2uyx1XD2KQ/zAxs4AoI0Nk2HvZ+gGs6bo++H6vhf+hsD3hBlwCJ7JeBTrS8qUiG7gThGhNdbs/52l2wxo1OOoMpp5iTbCbfGU1NPU2u0z8XpPtJfhj7WNYiTRvxPg1nMzvyWmEHbmKXtYCHpfYDajQ6pTlysCLg6+cs1h+nMRKjnbcra1q5oPkbWrcybe7aGVW1c3yAkCOkud5mAK2iKX7ThrqP9hvRemVvZpSmEAZzNRjwh/Gh0DXA7RdgDvBCF1xPySJxxgCBIfe7H0s1/xBuHItATTHNCQweUaOnac6rNkEjDQLd/lP2pxurcXuWqBzgAQmPRS8PpT3jH2zcVw4CrvphFcKeWw0yhec4ZM2RxVUWhSsb+eBNaXG+etBrEr+9h5fR45SP1r7+R6z+khBWeQdf66IwMqtI+kZ0fIrcasvBjomo9pHcHmIvdAmTVYbFWxC7aVR9M2a/KMkqz3Dt+X9jpWgJQ2Z7hEIktQK2U/whcy1VF/v111y+nvJZlZTT/lwFpb+JMo0NpAyxpfJxfq6RFSlKRza7OoniCEIv0XDL0LaCJnLGTMqa+7bj9Hj/5OhZuAK+A8R9Dw4oVTt1C/nVD4Uxj3rEFaeWkjF0LLV1KZxTubBbRLL1rAmyUVrlyxnwDmltE0WDx62xVSx+N8AAkhz6g=
-  file: bin/SpaceGame.jar
-  skip_cleanup: true
-  release-number: 0.0.1-alpha-build${TRAVIS_BUILD_NUMBER}
-  on:
-    repo: SharkChips/JavaGame
-    tags: true
-    all_branches: true
+machine:
+ java:
+  version: oraclejdk8
