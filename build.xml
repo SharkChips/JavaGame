@@ -54,7 +54,7 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="Launcher (1)">
+    <target name="GameLauncher">
         <java classname="com.albertzhang.javagame.Launcher" failonerror="true" fork="yes">
             <classpath refid="Space.classpath"/>
         </java>
