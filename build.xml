@@ -1,49 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Space">
-    <property environment="env"/>
-    <property name="debuglevel" value="source,lines,vars"/>
+<?xml version="1.0"?>
+<project name="SpaceGame" default="jar">
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
-    <path id="Space.classpath">
+	<property name="name" value="SpaceGame"/>
+	<path id="SpaceGame.classpath">
         <pathelement location="bin"/>
     </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="resources">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+	<target name="jar">
+		<mkdir dir="bin/"/>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="resources">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		<echo message="${ant.project.name}: ${ant.file}"/>
+		<javac debug="true" debuglevel="lines,vars,source" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
             <src path="resources"/>
-            <classpath refid="Space.classpath"/>
+			<classpath refid="SpaceGame.classpath"/>
         </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="GameLauncher">
-        <java classname="com.albertzhang.javagame.Launcher" failonerror="true" fork="yes">
-            <classpath refid="Space.classpath"/>
-        </java>
-    </target>
+		<jar destfile="bin/${name}.jar" >
+			<fileset dir="bin/"/>
+			<manifest>
+				<attribute name="Manifest-Version" value="1.8"/>
+                <attribute name="Main-Class" value="com.albertzhang.javagame.Launcher"/>
+            </manifest>
+		</jar>
+	</target>
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
 </project>
