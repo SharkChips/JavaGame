@@ -102,6 +102,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	}
     }
 
+    @Override
     public void run() {
 	if (DEBUG)
 	    System.out.println("Running at VSync: " + FRAMES_PER_SECOND + " FPS");
@@ -137,6 +138,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	isPaused = false;
     }
 
+    @Override
     public void paintComponent(Graphics graphics) {
 	int sprites = 0;
 

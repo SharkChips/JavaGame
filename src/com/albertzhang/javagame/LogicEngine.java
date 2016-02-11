@@ -112,6 +112,7 @@ public class LogicEngine implements Runnable {
 	}
     }
 
+    @Override
     public void run() {
 	if (DEBUG)
 	    System.out.println("Logic running at: " + TICKS_PER_SECOND + " Ticks per second");
