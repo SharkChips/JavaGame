@@ -1,3 +1,5 @@
 machine:
  java:
   version: oraclejdk8
+artifacts:
+ - bin/SpaceGame.jar
