@@ -1,5 +1,6 @@
 machine:
  java:
   version: oraclejdk8
-artifacts:
- - bin/SpaceGame.jar
+teardown:
+ artifacts:
+  - bin/SpaceGame.jar
