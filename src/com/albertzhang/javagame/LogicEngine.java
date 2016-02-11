@@ -51,6 +51,9 @@ public class LogicEngine implements Runnable {
     }
 
     public int getDifficulty() {
+	if (this.difficulty == 3) {
+	    return 10;
+	}
 	return this.difficulty;
     }
 
