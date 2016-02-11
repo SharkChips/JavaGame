@@ -13,3 +13,5 @@ deploy:
   release-number: 0.0.1-alpha-build${TRAVIS_BUILD_NUMBER}
   on:
     repo: SharkChips/JavaGame
+    tags: true
+    all_branches: true
