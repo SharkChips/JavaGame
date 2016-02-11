@@ -3,7 +3,7 @@
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
 	<property name="name" value="SpaceGame"/>
-	<path id="SpaceGame.classpath">
+	<path id="${name}.classpath">
         <pathelement location="bin"/>
     </path>
 	<target name="jar">
