@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding='windows-1252'?>
-<!DOCTYPE project>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project name="SpaceGame" default="jar">
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
