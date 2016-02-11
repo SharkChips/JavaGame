@@ -1,6 +1,7 @@
 machine:
  java:
   version: oraclejdk8
-general:
- artifacts:
-  - bin/SpaceGame.jar
+test:
+ post:
+  - ls
+  - cp bin/SpaceGame.jar $CIRCLE_ARTIFACTS/SpaceGame.jar
