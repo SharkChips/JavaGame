@@ -245,7 +245,7 @@ public class LogicEngine implements Runnable {
     private void spawnEnemy(ArrayList<Sprite> list) {
 	Enemy e = new Enemy(difficulty);
 	if (Math.abs(e.getX() - p.getX()) < 128 && Math.abs(e.getY() - p.getY()) < 128) {
-	    spawnEnemy(list); // If it intersects with the player try again
+	    spawnEnemy(list); // If it is somewhat close to the player, try again
 	}
 	list.add(e);
     }
