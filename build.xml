@@ -16,6 +16,8 @@
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="resources">
 				<exclude name="**/*.java"/>
+				<exclude name="Space.LICENSE"/>
+				<exclude name="Nasalization.LICENSE"/>
 			</fileset>
 		</copy>
 		<echo message="${ant.project.name}: ${ant.file}"/>

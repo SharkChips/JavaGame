@@ -1,9 +1,12 @@
 package com.albertzhang.javagame;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -18,9 +21,10 @@ public class RenderEngine extends JPanel implements Runnable {
     private boolean DEBUG = false;
 
     private static final int FRAMES_PER_SECOND = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getRefreshRate();
-    private static final int STARS = 25;
+    private static final int STARS = 50;
 
     private static LogicEngine lg;
+    private static Font spaceage;
     private ArrayList<Integer> xValues = new ArrayList<>(), yValues = new ArrayList<>();
     private int width;
     private int height;
@@ -32,6 +36,12 @@ public class RenderEngine extends JPanel implements Runnable {
 	lg = logic;
 	this.width = Main.width;
 	this.height = Main.height;
+	try {
+	    spaceage = Font.createFont(Font.TRUETYPE_FONT, RenderEngine.class.getClassLoader().getResourceAsStream("Space.otf")).deriveFont(Font.PLAIN, 28f);
+	} catch (FontFormatException | IOException e) {
+	    e.printStackTrace();
+	    spaceage = getFont().deriveFont(Font.PLAIN, 28); // If cannot get font, use default font
+	}
 	initBg();
     }
 
@@ -165,6 +175,8 @@ public class RenderEngine extends JPanel implements Runnable {
 	for (int i = 0; i < STARS; i++) { // The stars move down and either left or right
 	    yValues.set(i, yValues.get(i) + (int) (Math.random() * 2));
 	    xValues.set(i, xValues.get(i) + (int) ((Math.random() > 0.5 ? 1 : -1) * Math.random() * 2));
+	    if (yValues.get(i) > width)
+		yValues.set(i, 0); // Refills stars at top of screen
 	}
 	for (int i = 0; i < STARS; i++) {
 	    g.fillOval(xValues.get(i), yValues.get(i), 2, 2);
@@ -178,7 +190,7 @@ public class RenderEngine extends JPanel implements Runnable {
 
 		// If DEBUG, draw hitboxes and add 1 to sprites
 		if (DEBUG) {
-		    g.setColor(new Color(0, 255, 0, 50));
+		    g.setColor(Color.WHITE);
 		    g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
 		    sprites++;
 		}
@@ -190,17 +202,18 @@ public class RenderEngine extends JPanel implements Runnable {
 	g.drawImage(p.getImage(), p.getX(), p.getY(), null);
 
 	if (DEBUG) { // If DEBUG, display hitboxes
-	    g.setColor(new Color(0, 0, 255, 50));
+	    g.setColor(Color.WHITE);
 	    g.drawRect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
 	}
 
 	// Draws health
 	g.setColor(Color.BLUE);
-	g.drawString("Health: " + lg.getPlayer().getHealth(), 10, 20);
+	g.setFont(spaceage);
+	g.drawString("Health: " + (int) (lg.getPlayer().getHealth() / 10), 10, 30);
 
 	if (DEBUG && (System.currentTimeMillis() - startMS) > 1000) { // If DEBUG draw fps
-	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), Main.getWindows()[1].getWidth() - 100, 20);
-	    g.drawString("Entities: " + (sprites + 1), width - 100, 40);
+	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), width - 250, 30);
+	    g.drawString("Entities: " + (sprites + 1), width - 250, 60);
 	}
     }
 

@@ -2,6 +2,8 @@ package com.albertzhang.javagame;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.util.Hashtable;
 
 import javax.swing.DefaultComboBoxModel;
@@ -79,7 +81,15 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.WEST, title, 10, SpringLayout.WEST, frame.getContentPane());
 	springLayout.putConstraint(SpringLayout.SOUTH, title, -294, SpringLayout.SOUTH, frame.getContentPane());
 	springLayout.putConstraint(SpringLayout.EAST, title, 230, SpringLayout.WEST, frame.getContentPane());
-	title.setFont(new Font("Tempus Sans ITC", Font.PLAIN, 36));
+	Font f;
+	try {
+	    f = Font.createFont(Font.TRUETYPE_FONT, RenderEngine.class.getClassLoader().getResourceAsStream("Nasaliza.ttf")).deriveFont(Font.PLAIN, 32f);
+	} catch (FontFormatException | IOException e) {
+	    e.printStackTrace();
+	    f = this.frame.getFont().deriveFont(32f);
+	}
+
+	title.setFont(f);
 	title.setHorizontalAlignment(SwingConstants.CENTER);
 	frame.getContentPane().add(title);
 
@@ -166,7 +176,7 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.WEST, width, 0, SpringLayout.WEST, playBtn);
 	springLayout.putConstraint(SpringLayout.SOUTH, width, 32, SpringLayout.SOUTH, lblWidth);
 	springLayout.putConstraint(SpringLayout.EAST, width, 111, SpringLayout.WEST, frame.getContentPane());
-	width.setValue(800);
+	width.setValue(1024);
 	frame.getContentPane().add(width);
 
 	JSpinner height = new JSpinner();
@@ -175,7 +185,7 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.WEST, height, 6, SpringLayout.EAST, width);
 	springLayout.putConstraint(SpringLayout.SOUTH, height, 0, SpringLayout.SOUTH, width);
 	springLayout.putConstraint(SpringLayout.EAST, height, 0, SpringLayout.EAST, numPlayersBox);
-	height.setValue(600);
+	height.setValue(768);
 	frame.getContentPane().add(height);
 
 	JLabel lblHeight = new JLabel("Height");
