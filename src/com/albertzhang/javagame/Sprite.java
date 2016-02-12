@@ -16,7 +16,7 @@ public class Sprite extends java.awt.Image {
     private double x;
     private double y;
 
-    private int health = 1000;
+    private double health = 1000;
 
     public Sprite(String imageSrc) {
 	try {
@@ -52,12 +52,12 @@ public class Sprite extends java.awt.Image {
 	// By default if prints "Intersected" if Main.DEBUG is true
     }
 
-    public int getHealth() {
+    public double getHealth() {
 	return health;
     }
 
-    public void setHealth(int health) {
-	this.health = health;
+    public void setHealth(double d) {
+	this.health = d;
     }
 
     public int getX() {

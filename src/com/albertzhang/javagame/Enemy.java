@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 public class Enemy extends Sprite {
 
     private static final int MOVE_SPEED = 1;
-    private static final int BASE_DAMAGE_AMT = 1;
+    private static final double BASE_DAMAGE_AMT = 0.75;
     private static final String DEFAULT_IMAGE = "Entity0.png";
 
     private Player p;

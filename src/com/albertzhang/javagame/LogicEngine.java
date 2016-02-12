@@ -14,7 +14,7 @@ public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
     private static final int MAX_ENEMIES = 40;
-    private static final double BASE_DIFFICULTY = 0.01;
+    private static final double BASE_DIFFICULTY = 0.0075;
 
     private Thread runThread;
 
