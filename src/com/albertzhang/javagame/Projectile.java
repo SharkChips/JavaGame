@@ -10,13 +10,13 @@ public class Projectile extends Sprite {
     private static final int DAMAGE_AMT = 1001;
     private static final int MOV_SPEED = 8;
 
-    private double theta = 0.0;
+    private double theta = 0d;
 
     public Projectile() {
 	super(DEFAULT_IMAGE);
     }
 
-    public Projectile(int x, int y, double theta) {
+    public Projectile(double x, double y, double theta) {
 	super(x, y, DEFAULT_IMAGE);
 	this.theta = theta;
     }

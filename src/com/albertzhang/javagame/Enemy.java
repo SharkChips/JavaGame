@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class Enemy extends Sprite {
 
-    private static final int MOVE_SPEED = 1;
+    private static final double MOVE_SPEED = 0.9;
     private static final double BASE_DAMAGE_AMT = 0.75;
     private static final String DEFAULT_IMAGE = "Entity0.png";
 
@@ -25,19 +25,14 @@ public class Enemy extends Sprite {
     @Override
     public void doSpecialAction(Object... objects) {
 	p = (Player) objects[0];
-	if (!this.intersects(p.getBounds())) {
-	    if (this.getX() < p.getX()) {
-		this.setX(this.getX() + MOVE_SPEED * (0.9 + (0.1 * difficulty)));
-	    } else {
-		this.setX(this.getX() - MOVE_SPEED * (0.9 + (0.1 * difficulty)));
-	    }
-
-	    if (this.getY() < p.getY()) {
-		this.setY(this.getY() + MOVE_SPEED * (0.9 + (0.1 * difficulty)));
-	    } else {
-		this.setY(this.getY() - MOVE_SPEED * (0.9 + (0.1 * difficulty)));
-	    }
+	double theta = 0d;
+	try { // Must surround in try/catch because occasionally there will be a random NullPointerException
+	    theta = Math.atan2(this.getY() - p.getY(), this.getX() - p.getX()) + Math.PI / 2;
+	} catch (NullPointerException n) {
+	    // Do nothing because these don't matter
 	}
+	this.setX(this.getX() - Math.sin(theta) * MOVE_SPEED);
+	this.setY(this.getY() + Math.cos(theta) * MOVE_SPEED);
     }
 
     @Override
@@ -50,7 +45,7 @@ public class Enemy extends Sprite {
 	BufferedImage orig = super.getImage();
 	AffineTransform transform = new AffineTransform();
 	double angle = 0d;
-	try { // Must surround in try/catch because occasionally
+	try { // Must surround in try/catch because occasionally there will be a random NullPointerException
 	    angle = Math.atan2(p.getY() - this.getY(), p.getX() - this.getX());
 	} catch (NullPointerException n) {
 	    // Do nothing because these don't matter

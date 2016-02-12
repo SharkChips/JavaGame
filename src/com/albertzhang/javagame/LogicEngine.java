@@ -195,8 +195,8 @@ public class LogicEngine implements Runnable {
 	}
 
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
-	int pX = p.getX();
-	int pY = p.getY();
+	double pX = p.getX();
+	double pY = p.getY();
 	for (int index = 0; index < enemies.size(); index++) {
 	    Sprite s = enemies.get(index);
 	    if (s.getHealth() < 0) { // Removes dead enemies
@@ -218,8 +218,8 @@ public class LogicEngine implements Runnable {
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
 	    proj.doSpecialAction(p);
-	    int projX = proj.getX();
-	    int projY = proj.getY();
+	    double projX = proj.getX();
+	    double projY = proj.getY();
 	    for (Sprite en : enemies) {
 		// 46 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
 		if (Math.abs(projX - en.getX()) < 46 && Math.abs(projY - en.getY()) < 46) {

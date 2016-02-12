@@ -186,12 +186,12 @@ public class RenderEngine extends JPanel implements Runnable {
 	for (ArrayList<Sprite> a : lg.getShapes().values()) {
 	    for (int index = 0; index < a.size(); index++) {
 		Sprite s = a.get(index);
-		g.drawImage(s.getImage(), s.getX(), s.getY(), null);
+		g.drawImage(s.getImage(), (int) s.getX(), (int) s.getY(), null);
 
 		// If DEBUG, draw hitboxes and add 1 to sprites
 		if (DEBUG) {
 		    g.setColor(Color.WHITE);
-		    g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+		    g.drawRect((int) s.getX(), (int) s.getY(), s.getWidth(), s.getHeight());
 		    sprites++;
 		}
 	    }
@@ -199,11 +199,11 @@ public class RenderEngine extends JPanel implements Runnable {
 
 	// Draw player
 	Player p = lg.getPlayer();
-	g.drawImage(p.getImage(), p.getX(), p.getY(), null);
+	g.drawImage(p.getImage(), (int) p.getX(), (int) p.getY(), null);
 
 	if (DEBUG) { // If DEBUG, display hitboxes
 	    g.setColor(Color.WHITE);
-	    g.drawRect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+	    g.drawRect((int) p.getX(), (int) p.getY(), p.getWidth(), p.getHeight());
 	}
 
 	// Draws health

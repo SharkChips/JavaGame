@@ -60,16 +60,16 @@ public class Sprite extends java.awt.Image {
 	this.health = d;
     }
 
-    public int getX() {
-	return (int) x;
+    public double getX() {
+	return x;
     }
 
     public void setX(double x) {
 	this.x = x;
     }
 
-    public int getY() {
-	return (int) y;
+    public double getY() {
+	return y;
     }
 
     public void setY(double y) {
