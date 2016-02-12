@@ -25,17 +25,21 @@ public class LogicEngine implements Runnable {
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private Player p;
     private int difficulty = 1;
+    private int width;
+    private int height;
 
     private Color bgColor = Color.BLACK;
 
     public LogicEngine() {
+	this.width = Main.width;
+	this.height = Main.height;
 	initSprites();
     }
 
     public LogicEngine(int difficulty, boolean debug) {
+	this(); // This makes the first enemy easy, but it's ok
 	this.difficulty = difficulty;
 	DEBUG = debug;
-	initSprites();
     }
 
     public synchronized Map<String, ArrayList<Sprite>> getShapes() {
@@ -51,7 +55,7 @@ public class LogicEngine implements Runnable {
     }
 
     public int getDifficulty() {
-	if (this.difficulty == 3) {
+	if (this.difficulty == 3) { // If insane difficulty
 	    return 10;
 	}
 	return this.difficulty;
@@ -148,8 +152,8 @@ public class LogicEngine implements Runnable {
     private void initSprites() {
 	try {
 	    p = new Player(0, 0); // Make a new player to initialize the image so we can set X and Y appropriately
-	    p.setX(Main.getWindows()[1].getWidth() / 2 - p.getWidth() / 2);
-	    p.setY(Main.getWindows()[1].getHeight() / 2 - p.getHeight() / 2);
+	    p.setX(width / 2 - p.getWidth() / 2);
+	    p.setY(height / 2 - p.getHeight() / 2);
 	} catch (IOException e) {
 	    System.err.println("Player image not found");
 	    e.printStackTrace();
@@ -210,7 +214,7 @@ public class LogicEngine implements Runnable {
 	    }
 	}
 
-	Rectangle2D window = new Rectangle2D.Double(0, 0, Main.getWindows()[1].getWidth(), Main.getWindows()[1].getHeight());
+	Rectangle2D window = new Rectangle2D.Double(0, 0, width, height);
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
 	    proj.doSpecialAction(p);

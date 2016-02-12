@@ -5,9 +5,14 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
+    public static int width;
+    public static int height;
+
     public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug) {
 	super(Launcher.getName()); // prints title in title bar of window
-	setSize(width, height);
+	Main.width = width;
+	Main.height = height;
+	setSize(Main.width, Main.height);
 
 	// Instantiates LogicEngine
 	LogicEngine logic = new LogicEngine(difficulty + 1, logicDebug); // +1 because launcher goes from 0 to 3
@@ -25,7 +30,7 @@ public class Main extends JFrame {
 	addKeyListener(keyHandlingEngine);
 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setResizable(false);
 	setVisible(true);
     }
-
 }

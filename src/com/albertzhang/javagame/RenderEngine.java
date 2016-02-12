@@ -18,21 +18,29 @@ public class RenderEngine extends JPanel implements Runnable {
     private boolean DEBUG = false;
 
     private static final int FRAMES_PER_SECOND = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getRefreshRate();
+    private static final int STARS = 25;
+
     private static LogicEngine lg;
+    private ArrayList<Integer> xValues = new ArrayList<>(), yValues = new ArrayList<>();
+    private int width;
+    private int height;
 
     private long frames = 0;
     private long startMS = 0;
 
     public RenderEngine(LogicEngine logic) {
 	lg = logic;
+	this.width = Main.width;
+	this.height = Main.height;
+	initBg();
     }
 
     public RenderEngine(LogicEngine logic, boolean debug) {
+	this(logic);
 	DEBUG = debug;
 	if (DEBUG) { // If Main.DEBUG, record the starting timeF
 	    startMS = System.currentTimeMillis();
 	}
-	lg = logic;
     }
 
     /**
@@ -151,7 +159,17 @@ public class RenderEngine extends JPanel implements Runnable {
 
 	Graphics2D g = (Graphics2D) graphics;
 
+	// Draw background
 	setBackground(lg.getBGColor());
+	g.setColor(Color.YELLOW);
+	for (int i = 0; i < STARS; i++) { // The stars move down and either left or right
+	    yValues.set(i, yValues.get(i) + (int) (Math.random() * 2));
+	    xValues.set(i, xValues.get(i) + (int) ((Math.random() > 0.5 ? 1 : -1) * Math.random() * 2));
+	}
+	for (int i = 0; i < STARS; i++) {
+	    g.fillOval(xValues.get(i), yValues.get(i), 2, 2);
+	}
+
 	// Here we handle drawing objects
 	for (ArrayList<Sprite> a : lg.getShapes().values()) {
 	    for (int index = 0; index < a.size(); index++) {
@@ -168,20 +186,28 @@ public class RenderEngine extends JPanel implements Runnable {
 	}
 
 	// Draw player
-	g.drawImage(lg.getPlayer().getImage(), lg.getPlayer().getX(), lg.getPlayer().getY(), null);
+	Player p = lg.getPlayer();
+	g.drawImage(p.getImage(), p.getX(), p.getY(), null);
 
 	if (DEBUG) { // If DEBUG, display hitboxes
 	    g.setColor(new Color(0, 0, 255, 50));
-	    g.drawRect(lg.getPlayer().getX(), lg.getPlayer().getY(), lg.getPlayer().getWidth(), lg.getPlayer().getHeight());
+	    g.drawRect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
 	}
 
 	// Draws health
 	g.setColor(Color.BLUE);
 	g.drawString("Health: " + lg.getPlayer().getHealth(), 10, 20);
 
-	if (DEBUG && (System.currentTimeMillis() - startMS) > 1000) { // If Main.DEBUG draw fps
+	if (DEBUG && (System.currentTimeMillis() - startMS) > 1000) { // If DEBUG draw fps
 	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), Main.getWindows()[1].getWidth() - 100, 20);
-	    g.drawString("Entities: " + (sprites + 1), Main.getWindows()[1].getWidth() - 100, 40);
+	    g.drawString("Entities: " + (sprites + 1), width - 100, 40);
+	}
+    }
+
+    private void initBg() {
+	for (int i = 0; i < STARS; i++) {
+	    xValues.add((int) (Math.random() * width));
+	    yValues.add((int) (Math.random() * height));
 	}
     }
 }
