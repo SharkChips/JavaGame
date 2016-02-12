@@ -63,52 +63,44 @@ public class Player extends Sprite {
 	this.direction = direction;
     }
 
-    @Override
     public void moveNorth(int amount) {
 	setDirection(Direction.NORTH);
 	this.setY(this.getY() - amount);
     }
 
-    @Override
     public void moveSouth(int amount) {
 	setDirection(Direction.SOUTH);
 	this.setY(this.getY() + amount);
     }
 
-    @Override
     public void moveEast(int amount) {
 	setDirection(Direction.EAST);
 	this.setX(this.getX() + amount);
     }
 
-    @Override
     public void moveWest(int amount) {
 	setDirection(Direction.WEST);
 	this.setX(this.getX() - amount);
     }
 
-    @Override
     public void moveNE(int amount) {
 	setDirection(Direction.NE);
 	this.setY(this.getY() - amount);
 	this.setX(this.getX() + amount);
     }
 
-    @Override
     public void moveNW(int amount) {
 	setDirection(Direction.NW);
 	this.setY(this.getY() - amount);
 	this.setX(this.getX() - amount);
     }
 
-    @Override
     public void moveSE(int amount) {
 	setDirection(Direction.SE);
 	this.setY(this.getY() + amount);
 	this.setX(this.getX() + amount);
     }
 
-    @Override
     public void moveSW(int amount) {
 	setDirection(Direction.SW);
 	this.setY(this.getY() + amount);

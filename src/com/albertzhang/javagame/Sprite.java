@@ -49,7 +49,6 @@ public class Sprite extends java.awt.Image {
 
     public void onCollideWithEntity(Sprite collidedwith, Object... additionalObjs) {
 	// This method is called when a sprite collides with the player
-	// By default if prints "Intersected" if Main.DEBUG is true
     }
 
     public double getHealth() {
@@ -94,42 +93,6 @@ public class Sprite extends java.awt.Image {
 
     public Rectangle2D getBounds() {
 	return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
-    }
-
-    public void moveNorth(int amount) {
-	this.setX(this.getX() - amount);
-    }
-
-    public void moveSouth(int amount) {
-	this.setX(this.getX() + amount);
-    }
-
-    public void moveEast(int amount) {
-	this.setY(this.getY() + amount);
-    }
-
-    public void moveWest(int amount) {
-	this.setY(this.getY() - amount);
-    }
-
-    public void moveNE(int amount) {
-	this.setX(this.getX() - amount);
-	this.setY(this.getY() + amount);
-    }
-
-    public void moveNW(int amount) {
-	this.setX(this.getX() - amount);
-	this.setY(this.getY() - amount);
-    }
-
-    public void moveSE(int amount) {
-	this.setX(this.getX() + amount);
-	this.setY(this.getY() + amount);
-    }
-
-    public void moveSW(int amount) {
-	this.setX(this.getX() + amount);
-	this.setY(this.getY() - amount);
     }
 
     public boolean intersects(Rectangle2D bounds) {
