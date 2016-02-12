@@ -26,7 +26,7 @@ public class LogicEngine implements Runnable {
     private Player p;
     private int difficulty = 1;
 
-    private Color bgColor = Color.WHITE;
+    private Color bgColor = Color.BLACK;
 
     public LogicEngine() {
 	initSprites();
