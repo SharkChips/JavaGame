@@ -213,7 +213,6 @@ public class LogicEngine implements Runnable {
 	    }
 	}
 
-	Rectangle2D window = new Rectangle2D.Double(0, 0, width, height);
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
 	    proj.doSpecialAction(p);
