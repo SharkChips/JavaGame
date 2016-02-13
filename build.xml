@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project name="SpaceGame" default="jar">
+<project name="SpaceEvasion" default="jar">
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
-	<property name="name" value="SpaceGame"/>
+	<property name="name" value="SpaceEvasion"/>
 	<property environment="env"/>
-	<path id="SpaceGame.classpath">
+	<path id="SpaceEvasion.classpath">
         <pathelement location="bin"/>
     </path>
-	<target name="jar">
+	<target name="jar" depends="clean">
 		<mkdir dir="bin/"/>
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="src">
@@ -25,7 +25,7 @@
 		<javac debug="true" debuglevel="lines,vars,source" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
             <src path="resources"/>
-			<classpath refid="SpaceGame.classpath"/>
+			<classpath refid="SpaceEvasion.classpath"/>
         </javac>
 		<jar destfile="bin/${name}.jar" >
 			<fileset dir="bin/"/>

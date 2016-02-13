@@ -1,4 +1,4 @@
-package com.albertzhang.javagame;
+package com.albertzhang.spaceevasion;
 
 import java.awt.EventQueue;
 import java.awt.Font;

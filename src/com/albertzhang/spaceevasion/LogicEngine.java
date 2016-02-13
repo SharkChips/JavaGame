@@ -1,4 +1,4 @@
-package com.albertzhang.javagame;
+package com.albertzhang.spaceevasion;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;

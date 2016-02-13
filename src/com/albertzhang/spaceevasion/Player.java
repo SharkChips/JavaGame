@@ -1,4 +1,4 @@
-package com.albertzhang.javagame;
+package com.albertzhang.spaceevasion;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
