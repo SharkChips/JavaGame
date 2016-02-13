@@ -23,8 +23,9 @@ public class Launcher {
 
     private JFrame frame;
 
-    private static final String VERSION = "Alpha 0.1-" + Launcher.class.getPackage().getImplementationVersion();
-    private static final String NAME = "Space Evasion" + VERSION;
+    private static final String VERSION = "Alpha 0.1";
+    private static final int BUILD = Integer.parseInt(Launcher.class.getPackage().getImplementationVersion() != null ? Launcher.class.getPackage().getImplementationVersion() : "0");
+    private static final String NAME = "Space Evasion " + VERSION + '-' + String.format("%04d", BUILD);
 
     public static String getName() {
 	return NAME;
