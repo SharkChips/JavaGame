@@ -162,7 +162,6 @@ public class LogicEngine implements Runnable {
 
 	sprites.put("Enemies", new ArrayList<Sprite>() {
 	    {
-		add(new Enemy(difficulty));
 	    }
 	});
 	sprites.put("Projectiles", new ArrayList<Sprite>() {
@@ -234,6 +233,9 @@ public class LogicEngine implements Runnable {
 		projectiles.remove(index);
 	    }
 	}
+
+	// Make the difficulty a little harder each time (0.018 every minute)
+	difficulty += 0.000005;
     }
 
     /**
