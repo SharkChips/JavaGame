@@ -175,7 +175,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	for (int i = 0; i < STARS; i++) { // The stars move down and either left or right
 	    yValues.set(i, yValues.get(i) + (int) (Math.random() * 2));
 	    xValues.set(i, xValues.get(i) + (int) ((Math.random() > 0.5 ? 1 : -1) * Math.random() * 2));
-	    if (yValues.get(i) > width)
+	    if (yValues.get(i) > height)
 		yValues.set(i, 0); // Refills stars at top of screen
 	}
 	for (int i = 0; i < STARS; i++) {
