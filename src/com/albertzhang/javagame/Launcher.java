@@ -23,7 +23,8 @@ public class Launcher {
 
     private JFrame frame;
 
-    private static final String NAME = "Space Evasion";
+    private static final String VERSION = "Alpha 0.1-" + Launcher.class.getPackage().getImplementationVersion();
+    private static final String NAME = "Space Evasion" + VERSION;
 
     public static String getName() {
 	return NAME;
