@@ -30,7 +30,7 @@
 			<fileset dir="bin/"/>
 			<manifest>
 				<attribute name="Manifest-Version" value="1.8"/>
-                <attribute name="Main-Class" value="com.albertzhang.javagame.Launcher"/>
+                <attribute name="Main-Class" value="com.albertzhang.spaceevasion.Launcher"/>
 				<attribute name="Implementation-Version" value="${env.BUILD_ID}"/>
             </manifest>
 		</jar>
