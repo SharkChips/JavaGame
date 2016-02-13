@@ -8,11 +8,13 @@ public class Main extends JFrame {
     public static int width;
     public static int height;
 
-    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug) {
+    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug, boolean fullscreen) {
 	super(Launcher.getName()); // prints title in title bar of window
 	Main.width = width;
 	Main.height = height;
 	setSize(Main.width, Main.height);
+	if (fullscreen)
+	    setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	// Instantiates LogicEngine
 	LogicEngine logic = new LogicEngine(difficulty + 1, logicDebug); // +1 because launcher goes from 0 to 3

@@ -191,7 +191,7 @@ public class LogicEngine implements Runnable {
 
 	// Spawns more enemies if there can be more
 	if (Math.random() < BASE_DIFFICULTY * this.getDifficulty() && enemies.size() < MAX_ENEMIES) {
-	    spawnEnemy(enemies);
+	    enemies.add(spawnEnemy());
 	}
 
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
@@ -246,11 +246,12 @@ public class LogicEngine implements Runnable {
 	return new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
     }
 
-    private void spawnEnemy(ArrayList<Sprite> list) {
+    private Enemy spawnEnemy() {
 	Enemy e = new Enemy(difficulty);
 	if (Math.abs(e.getX() - p.getX()) < 128 && Math.abs(e.getY() - p.getY()) < 128) {
-	    spawnEnemy(list); // If it is somewhat close to the player, try again
+	    return spawnEnemy(); // If it is somewhat close to the player, try again
+	} else {
+	    return e;
 	}
-	list.add(e);
     }
 }

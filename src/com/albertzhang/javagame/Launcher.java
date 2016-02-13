@@ -63,7 +63,7 @@ public class Launcher {
 	    e.printStackTrace();
 	}
 	frame = new JFrame(NAME);
-	frame.setBounds(100, 100, 256, 400);
+	frame.setBounds(100, 100, 256, 450);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	SpringLayout springLayout = new SpringLayout();
 	frame.getContentPane().setLayout(springLayout);
@@ -78,8 +78,8 @@ public class Launcher {
 
 	JLabel title = new JLabel(NAME);
 	springLayout.putConstraint(SpringLayout.NORTH, title, 10, SpringLayout.NORTH, frame.getContentPane());
-	springLayout.putConstraint(SpringLayout.WEST, title, 10, SpringLayout.WEST, frame.getContentPane());
-	springLayout.putConstraint(SpringLayout.SOUTH, title, -294, SpringLayout.SOUTH, frame.getContentPane());
+	springLayout.putConstraint(SpringLayout.WEST, title, 0, SpringLayout.WEST, playBtn);
+	springLayout.putConstraint(SpringLayout.SOUTH, title, -331, SpringLayout.SOUTH, frame.getContentPane());
 	springLayout.putConstraint(SpringLayout.EAST, title, 230, SpringLayout.WEST, frame.getContentPane());
 	Font f;
 	try {
@@ -125,9 +125,10 @@ public class Launcher {
 	frame.getContentPane().add(playersLbl);
 
 	JComboBox<String> numPlayersBox = new JComboBox<String>();
-	numPlayersBox.setEnabled(false);
 	springLayout.putConstraint(SpringLayout.NORTH, numPlayersBox, 6, SpringLayout.SOUTH, playersLbl);
-	springLayout.putConstraint(SpringLayout.WEST, numPlayersBox, 1, SpringLayout.WEST, playBtn);
+	springLayout.putConstraint(SpringLayout.WEST, numPlayersBox, 10, SpringLayout.WEST, frame.getContentPane());
+	springLayout.putConstraint(SpringLayout.EAST, numPlayersBox, -20, SpringLayout.EAST, frame.getContentPane());
+	numPlayersBox.setEnabled(false);
 	numPlayersBox.setFocusable(false);
 	numPlayersBox.setModel(new DefaultComboBoxModel<String>(new String[] { "One Player", "Other modes not implemented yet" }));
 	frame.getContentPane().add(numPlayersBox);
@@ -135,31 +136,30 @@ public class Launcher {
 	frame.getRootPane().setDefaultButton(playBtn);
 
 	JLabel lblDebug = new JLabel("Debug");
-	springLayout.putConstraint(SpringLayout.WEST, lblDebug, 0, SpringLayout.WEST, playBtn);
+	springLayout.putConstraint(SpringLayout.WEST, lblDebug, 13, SpringLayout.WEST, frame.getContentPane());
+	springLayout.putConstraint(SpringLayout.EAST, lblDebug, 53, SpringLayout.WEST, frame.getContentPane());
 	lblDebug.setFont(new Font("Tahoma", Font.BOLD, 12));
 	frame.getContentPane().add(lblDebug);
 
 	JCheckBox dbgGra = new JCheckBox("Graphics");
-	dbgGra.setFocusable(false);
-	springLayout.putConstraint(SpringLayout.SOUTH, lblDebug, -6, SpringLayout.NORTH, dbgGra);
+	springLayout.putConstraint(SpringLayout.NORTH, dbgGra, 6, SpringLayout.SOUTH, lblDebug);
 	springLayout.putConstraint(SpringLayout.WEST, dbgGra, 0, SpringLayout.WEST, playBtn);
-	springLayout.putConstraint(SpringLayout.SOUTH, dbgGra, -6, SpringLayout.NORTH, playBtn);
+	dbgGra.setFocusable(false);
 	frame.getContentPane().add(dbgGra);
 
 	JCheckBox dbgLog = new JCheckBox("Logic");
-	dbgLog.setFocusable(false);
+	springLayout.putConstraint(SpringLayout.NORTH, dbgLog, 0, SpringLayout.NORTH, dbgGra);
 	springLayout.putConstraint(SpringLayout.WEST, dbgLog, 6, SpringLayout.EAST, dbgGra);
-	springLayout.putConstraint(SpringLayout.SOUTH, dbgLog, -6, SpringLayout.NORTH, playBtn);
+	dbgLog.setFocusable(false);
 	frame.getContentPane().add(dbgLog);
 
 	JCheckBox dbgKey = new JCheckBox("Keyhandling");
-	dbgKey.setFocusable(false);
-	springLayout.putConstraint(SpringLayout.EAST, numPlayersBox, 0, SpringLayout.EAST, dbgKey);
+	springLayout.putConstraint(SpringLayout.NORTH, dbgKey, 0, SpringLayout.NORTH, dbgGra);
 	springLayout.putConstraint(SpringLayout.WEST, dbgKey, 6, SpringLayout.EAST, dbgLog);
-	springLayout.putConstraint(SpringLayout.SOUTH, dbgKey, -6, SpringLayout.NORTH, playBtn);
+	dbgKey.setFocusable(false);
 	frame.getContentPane().add(dbgKey);
 
-	JLabel lblWin = new JLabel("Window Size");
+	JLabel lblWin = new JLabel("Graphics");
 	springLayout.putConstraint(SpringLayout.NORTH, lblWin, 6, SpringLayout.SOUTH, numPlayersBox);
 	springLayout.putConstraint(SpringLayout.WEST, lblWin, 0, SpringLayout.WEST, playBtn);
 	lblWin.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -171,20 +171,20 @@ public class Launcher {
 	frame.getContentPane().add(lblWidth);
 
 	JSpinner width = new JSpinner();
-	width.setFocusable(false);
 	springLayout.putConstraint(SpringLayout.NORTH, width, 6, SpringLayout.SOUTH, lblWidth);
 	springLayout.putConstraint(SpringLayout.WEST, width, 0, SpringLayout.WEST, playBtn);
 	springLayout.putConstraint(SpringLayout.SOUTH, width, 32, SpringLayout.SOUTH, lblWidth);
 	springLayout.putConstraint(SpringLayout.EAST, width, 111, SpringLayout.WEST, frame.getContentPane());
+	width.setFocusable(false);
 	width.setValue(1024);
 	frame.getContentPane().add(width);
 
 	JSpinner height = new JSpinner();
-	height.setFocusable(false);
 	springLayout.putConstraint(SpringLayout.NORTH, height, 0, SpringLayout.NORTH, width);
 	springLayout.putConstraint(SpringLayout.WEST, height, 6, SpringLayout.EAST, width);
-	springLayout.putConstraint(SpringLayout.SOUTH, height, 0, SpringLayout.SOUTH, width);
-	springLayout.putConstraint(SpringLayout.EAST, height, 0, SpringLayout.EAST, numPlayersBox);
+	springLayout.putConstraint(SpringLayout.SOUTH, height, 26, SpringLayout.NORTH, width);
+	springLayout.putConstraint(SpringLayout.EAST, height, -19, SpringLayout.EAST, frame.getContentPane());
+	height.setFocusable(false);
 	height.setValue(768);
 	frame.getContentPane().add(height);
 
@@ -193,9 +193,26 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.WEST, lblHeight, 79, SpringLayout.EAST, lblWidth);
 	frame.getContentPane().add(lblHeight);
 
+	JCheckBox chckFullScreen = new JCheckBox("Fullscreen");
+	springLayout.putConstraint(SpringLayout.NORTH, lblDebug, 6, SpringLayout.SOUTH, chckFullScreen);
+	springLayout.putConstraint(SpringLayout.NORTH, chckFullScreen, 6, SpringLayout.SOUTH, width);
+	springLayout.putConstraint(SpringLayout.WEST, chckFullScreen, 0, SpringLayout.WEST, playBtn);
+	frame.getContentPane().add(chckFullScreen);
+	chckFullScreen.addActionListener(listener -> {
+	    if (height.isEnabled()) {
+		width.setValue((int) frame.getGraphicsConfiguration().getBounds().getWidth());
+		height.setValue((int) frame.getGraphicsConfiguration().getBounds().getHeight());
+		height.setEnabled(false);
+		width.setEnabled(false);
+	    } else {
+		height.setEnabled(true);
+		width.setEnabled(true);
+	    }
+	});
+
 	playBtn.requestFocusInWindow();
 	playBtn.addActionListener(listener -> {
-	    new Main((int) width.getValue(), (int) height.getValue(), slider.getValue(), dbgGra.isSelected(), dbgLog.isSelected(), dbgKey.isSelected());
+	    new Main((int) width.getValue(), (int) height.getValue(), slider.getValue(), dbgGra.isSelected(), dbgLog.isSelected(), dbgKey.isSelected(), chckFullScreen.isSelected());
 	    this.frame.dispose();
 	});
     }
