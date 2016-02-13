@@ -13,9 +13,11 @@ public class Main extends JFrame {
 	Main.width = width;
 	Main.height = height;
 	setSize(Main.width, Main.height);
-	if (fullscreen)
+	if (fullscreen) {
+	    setUndecorated(true);
 	    setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+	}
+	
 	// Instantiates LogicEngine
 	LogicEngine logic = new LogicEngine(difficulty + 1, logicDebug); // +1 because launcher goes from 0 to 3
 	logic.start();
