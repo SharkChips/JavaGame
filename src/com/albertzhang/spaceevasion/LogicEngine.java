@@ -220,8 +220,8 @@ public class LogicEngine implements Runnable {
 	    double projX = proj.getX();
 	    double projY = proj.getY();
 	    for (Sprite en : enemies) {
-		// 46 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
-		if (Math.abs(projX - en.getX()) < 46 && Math.abs(projY - en.getY()) < 46) {
+		// 64 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
+		if (Math.abs(projX - en.getX()) < 64 && Math.abs(projY - en.getY()) < 64) {
 		    if (proj.intersects(en.getBounds())) {
 			proj.onCollideWithEntity(en); // Subtract player health if collides with player
 			projectiles.remove(index);
@@ -229,7 +229,8 @@ public class LogicEngine implements Runnable {
 		    }
 		}
 	    }
-	    if (!proj.intersects(window)) { // Removes projectiles that are out of bounds
+	    if (proj.getX() < -32 || proj.getX() > width || proj.getY() < -32 || proj.getY() > height) { // Removes projectiles that
+													 // are out of bounds
 		projectiles.remove(index);
 	    }
 	}
