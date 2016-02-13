@@ -23,7 +23,7 @@ public class Launcher {
 
     private JFrame frame;
 
-    private static final String NAME = "To Be Named";
+    private static final String NAME = "Space Evasion";
 
     public static String getName() {
 	return NAME;
@@ -64,6 +64,7 @@ public class Launcher {
 	}
 	frame = new JFrame(NAME);
 	frame.setBounds(100, 100, 256, 450);
+	frame.setResizable(false);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	SpringLayout springLayout = new SpringLayout();
 	frame.getContentPane().setLayout(springLayout);
@@ -76,11 +77,15 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.EAST, playBtn, -10, SpringLayout.EAST, frame.getContentPane());
 	frame.getContentPane().add(playBtn);
 
-	JLabel title = new JLabel(NAME);
+	JLabel title = new JLabel("Space");
 	springLayout.putConstraint(SpringLayout.NORTH, title, 10, SpringLayout.NORTH, frame.getContentPane());
 	springLayout.putConstraint(SpringLayout.WEST, title, 0, SpringLayout.WEST, playBtn);
-	springLayout.putConstraint(SpringLayout.SOUTH, title, -331, SpringLayout.SOUTH, frame.getContentPane());
-	springLayout.putConstraint(SpringLayout.EAST, title, 230, SpringLayout.WEST, frame.getContentPane());
+	springLayout.putConstraint(SpringLayout.SOUTH, title, 53, SpringLayout.NORTH, frame.getContentPane());
+	springLayout.putConstraint(SpringLayout.EAST, title, 0, SpringLayout.EAST, playBtn);
+	JLabel title2 = new JLabel("Evasion");
+	springLayout.putConstraint(SpringLayout.WEST, title2, 0, SpringLayout.WEST, playBtn);
+	springLayout.putConstraint(SpringLayout.EAST, title2, 0, SpringLayout.EAST, playBtn);
+
 	Font f;
 	try {
 	    f = Font.createFont(Font.TRUETYPE_FONT, RenderEngine.class.getClassLoader().getResourceAsStream("Nasaliza.ttf")).deriveFont(Font.PLAIN, 32f);
@@ -91,10 +96,15 @@ public class Launcher {
 
 	title.setFont(f);
 	title.setHorizontalAlignment(SwingConstants.CENTER);
+	title2.setFont(f);
+	title2.setHorizontalAlignment(SwingConstants.CENTER);
 	frame.getContentPane().add(title);
+	frame.getContentPane().add(title2);
 
 	JLabel diffLbl = new JLabel("Difficulty");
-	springLayout.putConstraint(SpringLayout.NORTH, diffLbl, 6, SpringLayout.SOUTH, title);
+	springLayout.putConstraint(SpringLayout.NORTH, title2, -37, SpringLayout.NORTH, diffLbl);
+	springLayout.putConstraint(SpringLayout.SOUTH, title2, -11, SpringLayout.NORTH, diffLbl);
+	springLayout.putConstraint(SpringLayout.NORTH, diffLbl, 43, SpringLayout.SOUTH, title);
 	springLayout.putConstraint(SpringLayout.WEST, diffLbl, 0, SpringLayout.WEST, playBtn);
 	diffLbl.setFont(new Font("Tahoma", Font.BOLD, 12));
 	frame.getContentPane().add(diffLbl);
@@ -198,6 +208,7 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.NORTH, chckFullScreen, 6, SpringLayout.SOUTH, width);
 	springLayout.putConstraint(SpringLayout.WEST, chckFullScreen, 0, SpringLayout.WEST, playBtn);
 	frame.getContentPane().add(chckFullScreen);
+
 	chckFullScreen.addActionListener(listener -> {
 	    if (height.isEnabled()) {
 		width.setValue((int) frame.getGraphicsConfiguration().getBounds().getWidth());
