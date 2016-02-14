@@ -152,7 +152,6 @@ public class RenderEngine extends JPanel implements Runnable {
 		}
 	    }
 	}
-
 	isPaused = false;
     }
 

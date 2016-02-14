@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import kuusisto.tinysound.TinySound;
+
 public class KeyHandling implements Runnable, KeyListener {
 
     private enum Bounds {
@@ -184,6 +186,7 @@ public class KeyHandling implements Runnable, KeyListener {
 		Player p = l.getPlayer();
 		// TODO: change 16 to half the final sprite's width
 		projectiles.add(new Projectile(p.getX() + p.getWidth() / 2 - 16, p.getY() + p.getHeight() / 2 - 16, Player.dirToRad(p.getDirection())));
+		TinySound.loadSound("");
 		break;
 	    case KeyEvent.VK_ESCAPE:
 		wPressed = false;
@@ -191,11 +194,14 @@ public class KeyHandling implements Runnable, KeyListener {
 		sPressed = false;
 		dPressed = false;
 		l.pause();
+		double priorVol = TinySound.getGlobalVolume();
+		TinySound.setGlobalVolume(0);
 		if (JOptionPane.showConfirmDialog(Main.getWindows()[1], "Would you like to exit?", Launcher.getName(), JOptionPane.YES_NO_OPTION,
 			JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 		    System.exit(0);
 		} else {
 		    l.resume();
+		    TinySound.setGlobalVolume(priorVol);
 		}
 	    default:
 		break;
