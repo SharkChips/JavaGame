@@ -50,7 +50,6 @@ public class TinySound {
     private static UpdateRunner autoUpdater;
     // Counter for unique sound IDs
     private static int soundCount = 0;
-    // Error counter
 
     /**
      * Initialize Tinysound. This must be called before loading audio.
@@ -323,6 +322,7 @@ public class TinySound {
      *            URL of the resource
      * @return the specified stream as an AudioInputStream stream, null if failure
      */
+    @SuppressWarnings("resource")
     private static AudioInputStream getValidAudioStream(InputStream in) {
 	AudioInputStream audioStream = null;
 	try {
