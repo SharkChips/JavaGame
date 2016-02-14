@@ -8,8 +8,8 @@ public class Main extends JFrame {
     public static int width;
     public static int height;
 
-    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug, boolean fullscreen) {
-	super(Launcher.getName()); // prints title in title bar of window
+    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug, boolean fullscreen, double musicVol) {
+	super(Launcher.getName()); // Prints title in title bar of window
 	Main.width = width;
 	Main.height = height;
 	setSize(Main.width, Main.height);
@@ -17,7 +17,7 @@ public class Main extends JFrame {
 	    setUndecorated(true);
 	    setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
-	
+
 	// Instantiates LogicEngine
 	LogicEngine logic = new LogicEngine(difficulty + 1, logicDebug); // +1 because launcher goes from 0 to 3
 	logic.start();
@@ -32,6 +32,13 @@ public class Main extends JFrame {
 	KeyHandling keyHandlingEngine = new KeyHandling(logic, keyDebug);
 	keyHandlingEngine.start();
 	addKeyListener(keyHandlingEngine);
+
+	// If we want to play music, make a MusicEngine
+	System.out.println(musicVol);
+	if (musicVol >= 0.01d) {
+	    MusicEngine music = new MusicEngine(musicVol, false); // TODO: Enable debug once we make an option for it in launcher
+	    music.start();
+	}
 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setResizable(false);
