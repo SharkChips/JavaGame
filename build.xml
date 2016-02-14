@@ -12,7 +12,7 @@
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="src">
 				<exclude name="**/*.java"/>
-				<exclude name="kuusisto/LICENSE"/>
+				<exclude name="kuusisto/tinysound/LICENSE"/>
 			</fileset>
 		</copy>
 		<copy includeemptydirs="false" todir="bin">
