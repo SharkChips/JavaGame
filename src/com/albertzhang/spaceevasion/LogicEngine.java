@@ -200,7 +200,7 @@ public class LogicEngine implements Runnable {
 	// Spawns more enemies if there can be more
 	if (Math.random() < BASE_DIFFICULTY * this.getDifficulty() && enemies.size() < MAX_ENEMIES) {
 	    enemies.add(spawnEnemy());
-	    TinySound.loadSound("");
+	    // TinySound.loadSound("");
 	}
 
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
@@ -210,7 +210,7 @@ public class LogicEngine implements Runnable {
 	    Sprite s = enemies.get(index);
 	    if (s.getHealth() < 0) { // Removes dead enemies
 		enemies.remove(index);
-		TinySound.loadSound("");
+		AudioEngine.playSound("Boom");
 	    }
 
 	    s.doSpecialAction(p); // This line moves moves them towards player
@@ -220,7 +220,7 @@ public class LogicEngine implements Runnable {
 	    if (Math.abs(s.getX() - pX) < 91 && Math.abs(s.getY() - pY) < 91) {
 		if (s.intersects(pBounds)) {
 		    s.onCollideWithEntity(p); // Subtract player health if collides with player
-		    TinySound.loadSound("");
+		    AudioEngine.playSound("Alarm");
 		}
 	    }
 	}
@@ -236,7 +236,7 @@ public class LogicEngine implements Runnable {
 		    if (proj.intersects(en.getBounds())) {
 			proj.onCollideWithEntity(en); // Subtract player health if collides with player
 			projectiles.remove(index);
-			TinySound.loadSound("");
+			TinySound.loadSound(" ");
 			break;
 		    }
 		}

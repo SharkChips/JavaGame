@@ -33,10 +33,9 @@ public class Main extends JFrame {
 	keyHandlingEngine.start();
 	addKeyListener(keyHandlingEngine);
 
-	// If we want to play music, make a MusicEngine
-	System.out.println(musicVol);
+	// If we want to play music, make a AudioEngine
 	if (musicVol >= 0.01d) {
-	    MusicEngine music = new MusicEngine(musicVol, false); // TODO: Enable debug once we make an option for it in launcher
+	    AudioEngine music = new AudioEngine(musicVol, false); // TODO: Enable debug once we make an option for it in launcher
 	    music.start();
 	}
 

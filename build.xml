@@ -6,25 +6,32 @@
 	<property environment="env"/>
 	<path id="SpaceEvasion.classpath">
         <pathelement location="bin"/>
+		<pathelement location="lib/tinysound-1.1.1.jar"/>
+	    <pathelement location="lib/jorbis-0.0.17.jar"/>
+        <pathelement location="lib/vorbisspi1.0.3.jar"/>
+	    <pathelement location="lib/tritonus-tinysound-1.1.1.jar"/>
     </path>
 	<target name="jar" depends="clean">
 		<mkdir dir="bin/"/>
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="src">
 				<exclude name="**/*.java"/>
-				<exclude name="kuusisto/tinysound/LICENSE"/>
 			</fileset>
 		</copy>
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="resources">
 				<exclude name="**/*.java"/>
-				<exclude name="Space.LICENSE"/>
-				<exclude name="Nasalization.LICENSE"/>
+			</fileset>
+		</copy>		
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="lib">
+				<exclude name="**/*.java"/>
 			</fileset>
 		</copy>
 		<javac debug="true" debuglevel="lines,vars,source" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
             <src path="resources"/>
+			<src path="lib"/>
 			<classpath refid="SpaceEvasion.classpath"/>
         </javac>
 		<jar destfile="bin/${name}.jar" >

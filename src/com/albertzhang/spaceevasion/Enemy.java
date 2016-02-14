@@ -8,7 +8,7 @@ public class Enemy extends Sprite {
 
     private static final double MOVE_SPEED = 0.9;
     private static final double BASE_DAMAGE_AMT = 0.75;
-    private static final String DEFAULT_IMAGE = "Entity0.png";
+    private static final String DEFAULT_IMAGE = "sprites/Enemy0.png";
 
     private Player p;
     private int difficulty = 1;

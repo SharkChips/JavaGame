@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class Projectile extends Sprite {
 
-    private static final String DEFAULT_IMAGE = "Entity1.png";
+    private static final String DEFAULT_IMAGE = "sprites/Projectile0.png";
     private static final int DAMAGE_AMT = 1001;
     private static final int MOV_SPEED = 8;
 
