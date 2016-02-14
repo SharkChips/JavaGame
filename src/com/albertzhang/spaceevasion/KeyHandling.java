@@ -186,7 +186,6 @@ public class KeyHandling implements Runnable, KeyListener {
 		Player p = l.getPlayer();
 		// TODO: change 16 to half the final sprite's width
 		projectiles.add(new Projectile(p.getX() + p.getWidth() / 2 - 16, p.getY() + p.getHeight() / 2 - 16, Player.dirToRad(p.getDirection())));
-		System.out.println("laser!");
 		AudioEngine.playSound("Laser");
 		break;
 	    case KeyEvent.VK_ESCAPE:

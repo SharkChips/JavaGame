@@ -19,8 +19,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import kuusisto.tinysound.TinySound;
-
 public class Launcher {
 
     private JFrame frame;
@@ -279,9 +277,8 @@ public class Launcher {
 
 	playBtn.requestFocusInWindow();
 	playBtn.addActionListener(listener -> {
-	    TinySound.setGlobalVolume(soundSlider.getValue() / 100d); // Sound volume handled here. Music volume handled in next line
 	    new Main((int) width.getValue(), (int) height.getValue(), slider.getValue(), dbgGra.isSelected(), dbgLog.isSelected(), dbgKey.isSelected(), chckFullScreen.isSelected(),
-		    musicSlider.getValue() / 100d);
+		    musicSlider.getValue() / 100d, soundSlider.getValue() / 100d);
 	    this.frame.dispose();
 	});
     }

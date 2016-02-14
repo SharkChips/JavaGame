@@ -13,15 +13,25 @@ public class AudioEngine implements Runnable {
     private boolean isRunning = false;
     private boolean isPaused = false;
     private boolean DEBUG = false;
-    private double volume;
+    private double musicVolume;
 
     private static final int SECONDS_PER_SONG = 60;
     private static final String[] SONGS = {};
     private static HashMap<String, Sound> SOUNDS = new HashMap<>();
 
-    public AudioEngine(double volume, boolean debug) {
+    public AudioEngine(double musicVol, double soundVol, boolean debug) {
 	DEBUG = debug;
-	this.volume = volume;
+	this.musicVolume = musicVol;
+	try {
+	    TinySound.init();
+	    TinySound.setGlobalVolume(soundVol);
+	} catch (Exception e) {
+	    System.err.println("Could not load sound system!");
+	    e.printStackTrace();
+	}
+
+	if (DEBUG)
+	    System.out.println("Audio Volume: " + TinySound.getGlobalVolume() * 100);
 
 	// Load Sounds
 	SOUNDS.put("Boom", TinySound.loadSound("audio/Boom.ogg"));
@@ -68,7 +78,7 @@ public class AudioEngine implements Runnable {
     }
 
     /**
-     * Pauses music
+     * Pauses Audio
      * 
      * @throws IllegalStateException
      *             If the thread has not been started yet
@@ -82,7 +92,7 @@ public class AudioEngine implements Runnable {
     }
 
     /**
-     * Resumes rendering thread
+     * Resumes Audio thread
      * 
      * @throws IllegalStateException
      *             If the thread has not been started yet
@@ -99,13 +109,13 @@ public class AudioEngine implements Runnable {
     @Override
     public void run() {
 	if (DEBUG)
-	    System.out.println("Running at: " + SECONDS_PER_SONG + " FPS");
+	    System.out.println("Running at: " + SECONDS_PER_SONG + " Seconds per song");
 
 	while (isRunning) {
 	    switchSong();
 
-	    try { // Sleep for required amount of time to maintain FRAMES_PER_SECOND
-		Thread.sleep(SECONDS_PER_SONG); // Sleep for 'amountToSleep' or 0, whichever is greater.
+	    try { // Sleep for required amount
+		Thread.sleep(SECONDS_PER_SONG);
 	    } catch (InterruptedException ex) {
 		ex.printStackTrace();
 	    }
@@ -135,7 +145,8 @@ public class AudioEngine implements Runnable {
 	if (DEBUG)
 	    System.out.println("Playing new song: " + s);
 	Music m = TinySound.loadMusic(s);
-	m.setVolume(volume);
+	m.setVolume(musicVolume);
+	m.play(false);
     }
 
 }

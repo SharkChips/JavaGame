@@ -36,12 +36,6 @@ public class LogicEngine implements Runnable {
 	this.width = Main.width;
 	this.height = Main.height;
 	initSprites();
-	try {
-	    TinySound.init();
-	} catch (Exception e) {
-	    System.err.println("Could not load sound system!");
-	    e.printStackTrace();
-	}
     }
 
     public LogicEngine(int difficulty, boolean debug) {
@@ -200,7 +194,7 @@ public class LogicEngine implements Runnable {
 	// Spawns more enemies if there can be more
 	if (Math.random() < BASE_DIFFICULTY * this.getDifficulty() && enemies.size() < MAX_ENEMIES) {
 	    enemies.add(spawnEnemy());
-	    // TinySound.loadSound("");
+	    // TODO: Play Spawn sound
 	}
 
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
@@ -236,7 +230,6 @@ public class LogicEngine implements Runnable {
 		    if (proj.intersects(en.getBounds())) {
 			proj.onCollideWithEntity(en); // Subtract player health if collides with player
 			projectiles.remove(index);
-			TinySound.loadSound(" ");
 			break;
 		    }
 		}
