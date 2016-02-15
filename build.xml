@@ -31,7 +31,7 @@
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0"/>
                 <attribute name="Main-Class" value="com.albertzhang.spaceevasion.Launcher"/>
-				<attribute name="Implementation-Version" value="1"/>
+				<attribute name="Implementation-Version" value="${env.BUILD_ID}"/>
             </manifest>
 		</jar>
 	</target>
