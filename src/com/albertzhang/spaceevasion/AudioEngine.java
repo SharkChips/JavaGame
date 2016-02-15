@@ -20,6 +20,9 @@ public class AudioEngine implements Runnable {
     private static HashMap<String, Sound> SOUNDS = new HashMap<>();
     private static HashMap<String, Music> CONTINUOUS_SOUNDS = new HashMap<>();
 
+    // Workaround because Music.playing() and Music.done() is broken.
+    private static HashMap<String, Boolean> CONT_SOUNDS_PLAYING = new HashMap<>();
+
     public AudioEngine(double musicVol, double soundVol, boolean debug) {
 	DEBUG = debug;
 	this.musicVolume = musicVol;
@@ -38,6 +41,7 @@ public class AudioEngine implements Runnable {
 	SOUNDS.put("Boom", TinySound.loadSound("audio/Boom.ogg"));
 	SOUNDS.put("Laser", TinySound.loadSound("audio/Laser.ogg"));
 	CONTINUOUS_SOUNDS.put("Alarm", TinySound.loadMusic("audio/Alarm.ogg"));
+	CONT_SOUNDS_PLAYING.put("Alarm", false); // Workaround (described above in declaration)
     }
 
     /**
@@ -144,13 +148,19 @@ public class AudioEngine implements Runnable {
      * 
      * @param name
      *            The name of the sound to be played
+     * @param play
+     *            Whether to play the sound or not. Used as a workaround because Music.playing() and Music.done() doesn't work
      */
-    public static void playSoundContinuous(String name) {
+    public static void playSoundContinuous(String name, boolean play) {
 	Music m = CONTINUOUS_SOUNDS.get(name);
-	System.out.println("m.playing: " + m.playing());
-	System.out.println("m.done: " + m.done());
-	if (!m.playing() || m.done()) {
-	    m.play(false);
+	Boolean b = CONT_SOUNDS_PLAYING.get(name);
+	if (m == null || b == null)
+	    return;
+	if (!play) {
+	    m.stop();
+	    b = false;
+	} else if (!b) {
+	    m.play(true);
 	}
     }
 

@@ -200,6 +200,7 @@ public class LogicEngine implements Runnable {
 	Rectangle2D pBounds = p.getBounds(); // The bounds of the player
 	double pX = p.getX();
 	double pY = p.getY();
+	boolean playAlarm = false;
 	for (int index = 0; index < enemies.size(); index++) {
 	    Sprite s = enemies.get(index);
 	    if (s.getHealth() < 0) { // Removes dead enemies
@@ -214,10 +215,11 @@ public class LogicEngine implements Runnable {
 	    if (Math.abs(s.getX() - pX) < 91 && Math.abs(s.getY() - pY) < 91) {
 		if (s.intersects(pBounds)) {
 		    s.onCollideWithEntity(p); // Subtract player health if collides with player
-		    AudioEngine.playSoundContinuous("Alarm");
+		    playAlarm = true;
 		}
 	    }
 	}
+	AudioEngine.playSoundContinuous("Alarm", playAlarm);
 
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
