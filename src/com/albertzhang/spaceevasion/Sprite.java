@@ -1,15 +1,12 @@
 package com.albertzhang.spaceevasion;
 
-import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Sprite extends java.awt.Image {
+public class Sprite {
 
     private BufferedImage image;
 
@@ -40,11 +37,6 @@ public class Sprite extends java.awt.Image {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-    }
-
-    public void doSpecialAction(Object... objects) {
-	// This method is for each Sprite's special action (eg. following player)
-	// By default it does nothing
     }
 
     public void onCollideWithEntity(Sprite collidedwith, Object... additionalObjs) {
@@ -97,31 +89,5 @@ public class Sprite extends java.awt.Image {
 
     public boolean intersects(Rectangle2D bounds) {
 	return bounds.intersects(this.getBounds());
-    }
-
-    // -------The following methods are inherited from java.awt.Image
-
-    public int getWidth(ImageObserver observer) {
-	return image.getWidth();
-    }
-
-    @Override
-    public int getHeight(ImageObserver observer) {
-	return image.getHeight();
-    }
-
-    @Override
-    public ImageProducer getSource() {
-	return image.getSource();
-    }
-
-    @Override
-    public Graphics getGraphics() {
-	return image.getGraphics();
-    }
-
-    @Override
-    public Object getProperty(String name, ImageObserver observer) {
-	return image.getProperty(name, observer);
     }
 }

@@ -9,6 +9,7 @@ public class Enemy extends Sprite {
     private static final double MOVE_SPEED = 0.9;
     private static final double BASE_DAMAGE_AMT = 0.75;
     private static final String DEFAULT_IMAGE = "sprites/Enemy0.png";
+    private double theta = 0d;
 
     private Player p;
     private int difficulty = 1;
@@ -17,20 +18,19 @@ public class Enemy extends Sprite {
 	super((int) (Math.random() * Main.getFrames()[1].getWidth()), (int) (Math.random() * Main.getFrames()[1].getHeight()), source);
     }
 
-    public Enemy(int d) {
+    public Enemy(int d, Player p) {
 	super((int) (Math.random() * Main.getFrames()[1].getWidth()), (int) (Math.random() * Main.getFrames()[1].getHeight()), DEFAULT_IMAGE);
 	this.difficulty = d;
+	this.p = p;
     }
 
-    @Override
-    public void doSpecialAction(Object... objects) {
-	p = (Player) objects[0];
+    public double getTheta() {
+	return this.theta;
+    }
+
+    public void moveTowardsPlayer() {
 	double theta = 0d;
-	try { // Must surround in try/catch because occasionally there will be a random NullPointerException
-	    theta = Math.atan2(this.getY() - p.getY(), this.getX() - p.getX()) + Math.PI / 2;
-	} catch (NullPointerException n) {
-	    // Do nothing because these don't matter
-	}
+	theta = Math.atan2(this.getY() - p.getY(), this.getX() - p.getX()) + Math.PI / 2;
 	this.setX(this.getX() - Math.sin(theta) * MOVE_SPEED);
 	this.setY(this.getY() + Math.cos(theta) * MOVE_SPEED);
     }
@@ -41,16 +41,12 @@ public class Enemy extends Sprite {
 	p.setHealth(p.getHealth() - BASE_DAMAGE_AMT * difficulty);
     }
 
+    @Override
     public BufferedImage getImage() {
 	BufferedImage orig = super.getImage();
 	AffineTransform transform = new AffineTransform();
-	double angle = 0d;
-	try { // Must surround in try/catch because occasionally there will be a random NullPointerException
-	    angle = Math.atan2(p.getY() - this.getY(), p.getX() - this.getX());
-	} catch (NullPointerException n) {
-	    // Do nothing because these don't matter
-	}
-	transform.rotate(angle + Math.PI / 2, orig.getWidth() / 2, orig.getHeight() / 2);
+	this.theta = Math.atan2(p.getY() - this.getY(), p.getX() - this.getX());
+	transform.rotate(this.theta + Math.PI / 2, orig.getWidth() / 2, orig.getHeight() / 2);
 	AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 	return op.filter(orig, null);
     }

@@ -1,5 +1,6 @@
 package com.albertzhang.spaceevasion;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -181,7 +182,20 @@ public class RenderEngine extends JPanel implements Runnable {
 	    g.fillOval(xValues.get(i), yValues.get(i), 2, 2);
 	}
 
+	// Draw dying enemies
+	ArrayList<DyingEnemy> dEnm = lg.getDyingEnemies();
+	for (int i = 0; i < dEnm.size(); i++) {
+	    DyingEnemy d = dEnm.get(i);
+	    if (d.getDeathStage() < 0.05) {
+		dEnm.remove(i);
+	    } else {
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, ((DyingEnemy) d).getDeathStage()));
+		g.drawImage(d.getImage(), (int) d.getX(), (int) d.getY(), null);
+	    }
+	}
+
 	// Here we handle drawing objects
+	g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 	for (ArrayList<Sprite> a : lg.getShapes().values()) {
 	    for (int index = 0; index < a.size(); index++) {
 		Sprite s = a.get(index);

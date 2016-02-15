@@ -25,8 +25,7 @@ public class Projectile extends Sprite {
 	return this.theta;
     }
 
-    @Override
-    public void doSpecialAction(Object... objects) {
+    public void move() {
 	this.setX(this.getX() + Math.sin(theta + Math.PI / 2) * MOV_SPEED);
 	this.setY(this.getY() + Math.cos(theta + Math.PI / 2) * MOV_SPEED);
     }

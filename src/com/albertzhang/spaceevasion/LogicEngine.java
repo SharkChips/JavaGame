@@ -25,6 +25,7 @@ public class LogicEngine implements Runnable {
     private boolean DEBUG = false;
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
+    private ArrayList<DyingEnemy> dyingEnemies = new ArrayList<>();
     private Player p;
     private int difficulty = 1;
     private int width;
@@ -46,6 +47,10 @@ public class LogicEngine implements Runnable {
 
     public Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
+    }
+
+    public ArrayList<DyingEnemy> getDyingEnemies() {
+	return dyingEnemies;
     }
 
     public Color getBGColor() {
@@ -204,11 +209,12 @@ public class LogicEngine implements Runnable {
 	for (int index = 0; index < enemies.size(); index++) {
 	    Sprite s = enemies.get(index);
 	    if (s.getHealth() < 0) { // Removes dead enemies
+		dyingEnemies.add(new DyingEnemy(s.getX(), s.getY(), ((Enemy) s).getTheta()));
 		enemies.remove(index);
 		AudioEngine.playSound("Boom");
 	    }
 
-	    s.doSpecialAction(p); // This line moves moves them towards player
+	    ((Enemy) s).moveTowardsPlayer();
 
 	    // The following line optimizes collision detection. It decreases time by up to 8 ms.
 	    // 91 is the max distance between 2 touching 64px square sprites. TODO: Change this if sprite sizes change
@@ -223,7 +229,7 @@ public class LogicEngine implements Runnable {
 
 	for (int index = 0; index < projectiles.size(); index++) {
 	    Sprite proj = projectiles.get(index);
-	    proj.doSpecialAction(p);
+	    ((Projectile) proj).move();
 	    double projX = proj.getX();
 	    double projY = proj.getY();
 	    for (Sprite en : enemies) {
@@ -256,7 +262,7 @@ public class LogicEngine implements Runnable {
     }
 
     private Enemy spawnEnemy() {
-	Enemy e = new Enemy(difficulty);
+	Enemy e = new Enemy(difficulty, p);
 	if (Math.abs(e.getX() - p.getX()) < 128 && Math.abs(e.getY() - p.getY()) < 128) {
 	    return spawnEnemy(); // If it is somewhat close to the player, try again
 	} else {
