@@ -16,30 +16,22 @@
 				<exclude name="**/*.java"/>
 			</fileset>
 		</copy>
-		<mkdir dir="bin/lib/"/>
-		<copy includeemptydirs="false" todir="bin/lib">
-			<fileset dir="lib">
-				<exclude name="**/*.java"/>
-			</fileset>
-		</copy>
 		<javac debug="true" debuglevel="lines,vars,source" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
             <src path="resources"/>
-			<src path="bin/lib"/>
+			<src path="lib"/>
 			<classpath>
-				<pathelement location="lib/tinysound-1.1.1.jar"/>
-				<pathelement location="lib/jorbis-0.0.17.jar"/>
-				<pathelement location="lib/vorbisspi1.0.3.jar"/>
-				<pathelement location="lib/tritonus-tinysound-1.1.1.jar"/>
 				<fileset dir="bin"/>
+				<fileset dir="lib"/>
 			</classpath>
         </javac>
 		<jar destfile="bin/${name}.jar" >
+			<zipgroupfileset dir="lib" includes="*.jar" />
 			<fileset dir="bin/"/>
 			<manifest>
-				<attribute name="Manifest-Version" value="1.8"/>
+				<attribute name="Manifest-Version" value="1.0"/>
                 <attribute name="Main-Class" value="com.albertzhang.spaceevasion.Launcher"/>
-				<attribute name="Implementation-Version" value="${env.BUILD_ID}"/>
+				<attribute name="Implementation-Version" value="1"/>
             </manifest>
 		</jar>
 	</target>
