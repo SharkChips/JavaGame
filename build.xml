@@ -25,7 +25,7 @@
 		<javac debug="true" debuglevel="lines,vars,source" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
             <src path="resources"/>
-			<src path="lib"/>
+			<src path="bin/lib"/>
 			<classpath>
 				<pathelement location="lib/tinysound-1.1.1.jar"/>
 				<pathelement location="lib/jorbis-0.0.17.jar"/>
