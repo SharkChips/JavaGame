@@ -28,6 +28,7 @@ public class LogicEngine implements Runnable {
     private ArrayList<DyingEnemy> dyingEnemies = new ArrayList<>();
     private Player p;
     private int difficulty = 1;
+    private int score = 0;
     private int width;
     private int height;
 
@@ -66,6 +67,14 @@ public class LogicEngine implements Runnable {
 	    return 10;
 	}
 	return this.difficulty;
+    }
+
+    public int getScore() {
+	return this.score;
+    }
+
+    public void setScore(int score) {
+	this.score = score > 0 ? score : 0;
     }
 
     /**
@@ -157,6 +166,7 @@ public class LogicEngine implements Runnable {
     }
 
     private void initSprites() {
+	setScore(0);
 	try {
 	    p = new Player(0, 0); // Make a new player to initialize the image so we can set X and Y appropriately
 	    p.setX(width / 2 - p.getWidth() / 2);
@@ -184,7 +194,7 @@ public class LogicEngine implements Runnable {
 	    double oldSndVol = AudioEngine.getSoundVolume();
 	    AudioEngine.setMusicVolume(0);
 	    AudioEngine.setSoundVolume(0);
-	    JOptionPane.showMessageDialog(Main.getWindows()[1], "You lost!", Launcher.getName(), JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane.showMessageDialog(Main.getWindows()[1], "You lost with a score of " + getScore() + '!', Launcher.getName(), JOptionPane.INFORMATION_MESSAGE);
 	    this.pause();
 	    if (JOptionPane.showConfirmDialog(Main.getWindows()[1], "Would you like to play again?", Launcher.getName(), JOptionPane.YES_NO_OPTION,
 		    JOptionPane.PLAIN_MESSAGE) == JOptionPane.YES_OPTION) {
@@ -216,6 +226,7 @@ public class LogicEngine implements Runnable {
 	    if (s.getHealth() < 0) { // Removes dead enemies
 		dyingEnemies.add(new DyingEnemy(s.getX(), s.getY(), ((Enemy) s).getTheta()));
 		enemies.remove(index);
+		setScore(getScore() + 55);
 		AudioEngine.playSound("Boom");
 	    }
 

@@ -223,6 +223,7 @@ public class RenderEngine extends JPanel implements Runnable {
 	g.setColor(Color.BLUE);
 	g.setFont(spaceage);
 	g.drawString("Health: " + (int) (lg.getPlayer().getHealth() / 10), 10, 30);
+	g.drawString("Score: " + lg.getScore(), 10, height - 35);
 
 	if (DEBUG && (System.currentTimeMillis() - startMS) > 1000) { // If DEBUG draw fps
 	    g.drawString("FPS: " + frames / ((System.currentTimeMillis() - startMS) / 1000), width - 250, 30);
