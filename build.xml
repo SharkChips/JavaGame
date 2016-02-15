@@ -15,8 +15,9 @@
 			<fileset dir="resources">
 				<exclude name="**/*.java"/>
 			</fileset>
-		</copy>		
-		<copy includeemptydirs="false" todir="bin">
+		</copy>
+		<mkdir dir="bin/lib/"/>
+		<copy includeemptydirs="false" todir="bin/lib">
 			<fileset dir="lib">
 				<exclude name="**/*.java"/>
 			</fileset>
