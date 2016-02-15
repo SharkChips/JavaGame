@@ -167,7 +167,7 @@ public class Launcher {
 	dbgLog.setFocusable(false);
 	frame.getContentPane().add(dbgLog);
 
-	JCheckBox dbgKey = new JCheckBox("Keyhandling");
+	JCheckBox dbgKey = new JCheckBox("Keys");
 	springLayout.putConstraint(SpringLayout.NORTH, dbgKey, 0, SpringLayout.NORTH, dbgGra);
 	springLayout.putConstraint(SpringLayout.WEST, dbgKey, 6, SpringLayout.EAST, dbgLog);
 	dbgKey.setFocusable(false);
@@ -252,6 +252,11 @@ public class Launcher {
 	springLayout.putConstraint(SpringLayout.EAST, lblMusic, -9, SpringLayout.WEST, musicSlider);
 	frame.getContentPane().add(lblMusic);
 
+	JCheckBox dbgAudio = new JCheckBox("Audio");
+	springLayout.putConstraint(SpringLayout.NORTH, dbgAudio, 0, SpringLayout.NORTH, dbgGra);
+	springLayout.putConstraint(SpringLayout.EAST, dbgAudio, 0, SpringLayout.EAST, playBtn);
+	frame.getContentPane().add(dbgAudio);
+
 	chckFullScreen.addActionListener(listener -> {
 	    if (height.isEnabled()) {
 		width.setValue((int) frame.getGraphicsConfiguration().getBounds().getWidth());
@@ -277,8 +282,8 @@ public class Launcher {
 
 	playBtn.requestFocusInWindow();
 	playBtn.addActionListener(listener -> {
-	    new Main((int) width.getValue(), (int) height.getValue(), slider.getValue(), dbgGra.isSelected(), dbgLog.isSelected(), dbgKey.isSelected(), chckFullScreen.isSelected(),
-		    musicSlider.getValue() / 100d, soundSlider.getValue() / 100d);
+	    new Main((int) width.getValue(), (int) height.getValue(), slider.getValue(), dbgGra.isSelected(), dbgLog.isSelected(), dbgKey.isSelected(), dbgAudio.isSelected(),
+		    chckFullScreen.isSelected(), musicSlider.getValue() / 100d, soundSlider.getValue() / 100d);
 	    this.frame.dispose();
 	});
     }

@@ -8,7 +8,7 @@ public class Main extends JFrame {
     public static int width;
     public static int height;
 
-    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug, boolean fullscreen, double musicVol, double soundVol) {
+    public Main(int width, int height, int difficulty, boolean graphicsDebug, boolean logicDebug, boolean keyDebug, boolean audioDebug, boolean fullscreen, double musicVol, double soundVol) {
 	super(Launcher.getName()); // Prints title in title bar of window
 	Main.width = width;
 	Main.height = height;
@@ -35,7 +35,7 @@ public class Main extends JFrame {
 
 	// If we want to play music, make a AudioEngine
 	if (musicVol >= 0.01d) {
-	    AudioEngine music = new AudioEngine(musicVol, soundVol, true); // TODO: Enable debug once we make an option
+	    AudioEngine music = new AudioEngine(musicVol, soundVol, audioDebug); // TODO: Enable debug once we make an option
 	    music.start();
 	}
 
