@@ -13,19 +13,22 @@ public class AudioEngine implements Runnable {
     private boolean isRunning = false;
     private boolean isPaused = false;
     private boolean DEBUG = false;
-    private double musicVolume;
+    private static double musicVolume;
+    private static double soundVolume;
 
     private static final int SECONDS_PER_SONG = 60;
     private static final String[] SONGS = { "Music1", "Music2", "Music3", "Music4" };
     private static HashMap<String, Sound> SOUNDS = new HashMap<>();
     private static HashMap<String, Music> CONTINUOUS_SOUNDS = new HashMap<>();
+    private static Music current;
 
     // Workaround because Music.playing() and Music.done() is broken.
     private static HashMap<String, Boolean> CONT_SOUNDS_PLAYING = new HashMap<>();
 
     public AudioEngine(double musicVol, double soundVol, boolean debug) {
 	DEBUG = debug;
-	this.musicVolume = musicVol;
+	musicVolume = musicVol;
+	soundVolume = soundVol;
 	if (DEBUG)
 	    System.out.println("Audio Running at: " + SECONDS_PER_SONG + " Seconds per song");
 	try {
@@ -38,7 +41,7 @@ public class AudioEngine implements Runnable {
 
 	if (DEBUG) {
 	    System.out.println("Sound Volume: " + TinySound.getGlobalVolume() * 100);
-	    System.out.println("Music Volume: " + this.musicVolume * 100);
+	    System.out.println("Music Volume: " + getMusicVolume() * 100);
 	}
 
 	// Load Sounds
@@ -47,6 +50,25 @@ public class AudioEngine implements Runnable {
 	CONTINUOUS_SOUNDS.put("Alarm", TinySound.loadMusic("audio/Alarm.ogg"));
 	CONT_SOUNDS_PLAYING.put("Alarm", false); // Workaround (described above in declaration)
     }
+
+    public static double getMusicVolume() {
+	return musicVolume;
+    }
+
+    public static void setMusicVolume(double musicVolume) {
+	AudioEngine.musicVolume = musicVolume;
+	current.setVolume(musicVolume);
+    }
+
+    public static double getSoundVolume() {
+	return soundVolume;
+    }
+
+    public static void setSoundVolume(double soundVolume) {
+	AudioEngine.soundVolume = soundVolume;
+	TinySound.setGlobalVolume(soundVolume);
+    }
+    
 
     /**
      * Starts the thread
@@ -162,6 +184,7 @@ public class AudioEngine implements Runnable {
 	    b = false;
 	} else if (!b) {
 	    m.play(true);
+	    m.setVolume(soundVolume);
 	}
     }
 
@@ -176,5 +199,6 @@ public class AudioEngine implements Runnable {
 	}
 	m.setVolume(musicVolume);
 	m.play(false);
+	current = m;
     }
 }

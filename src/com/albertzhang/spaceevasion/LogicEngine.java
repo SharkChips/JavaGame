@@ -180,13 +180,18 @@ public class LogicEngine implements Runnable {
     private void doLogic() {
 	if (p.getHealth() < 0) {
 	    p.setHealth(0); // This prevents the user from seeing health be negative
-	    System.out.println("You lost!");
+	    double oldMusVol = AudioEngine.getMusicVolume();
+	    double oldSndVol = AudioEngine.getSoundVolume();
+	    AudioEngine.setMusicVolume(0);
+	    AudioEngine.setSoundVolume(0);
 	    JOptionPane.showMessageDialog(Main.getWindows()[1], "You lost!", Launcher.getName(), JOptionPane.INFORMATION_MESSAGE);
 	    this.pause();
 	    if (JOptionPane.showConfirmDialog(Main.getWindows()[1], "Would you like to play again?", Launcher.getName(), JOptionPane.YES_NO_OPTION,
 		    JOptionPane.PLAIN_MESSAGE) == JOptionPane.YES_OPTION) {
 		this.initSprites();
 		this.resume();
+		AudioEngine.setSoundVolume(oldSndVol);
+		AudioEngine.setMusicVolume(oldMusVol);
 	    } else {
 		TinySound.shutdown();
 		System.exit(0);
