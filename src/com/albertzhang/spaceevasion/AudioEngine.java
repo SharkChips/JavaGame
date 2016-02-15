@@ -16,7 +16,7 @@ public class AudioEngine implements Runnable {
     private double musicVolume;
 
     private static final int SECONDS_PER_SONG = 60;
-    private static final String[] SONGS = {};
+    private static final String[] SONGS = { "Music1", "Music2", "Music3", "Music4" };
     private static HashMap<String, Sound> SOUNDS = new HashMap<>();
     private static HashMap<String, Music> CONTINUOUS_SOUNDS = new HashMap<>();
 
@@ -26,6 +26,8 @@ public class AudioEngine implements Runnable {
     public AudioEngine(double musicVol, double soundVol, boolean debug) {
 	DEBUG = debug;
 	this.musicVolume = musicVol;
+	if (DEBUG)
+	    System.out.println("Audio Running at: " + SECONDS_PER_SONG + " Seconds per song");
 	try {
 	    TinySound.init();
 	    TinySound.setGlobalVolume(soundVol);
@@ -34,8 +36,10 @@ public class AudioEngine implements Runnable {
 	    e.printStackTrace();
 	}
 
-	if (DEBUG)
-	    System.out.println("Audio Volume: " + TinySound.getGlobalVolume() * 100);
+	if (DEBUG) {
+	    System.out.println("Sound Volume: " + TinySound.getGlobalVolume() * 100);
+	    System.out.println("Music Volume: " + this.musicVolume * 100);
+	}
 
 	// Load Sounds
 	SOUNDS.put("Boom", TinySound.loadSound("audio/Boom.ogg"));
@@ -113,14 +117,11 @@ public class AudioEngine implements Runnable {
 
     @Override
     public void run() {
-	if (DEBUG)
-	    System.out.println("Running at: " + SECONDS_PER_SONG + " Seconds per song");
-
 	while (isRunning) {
 	    switchSong();
 
 	    try { // Sleep for required amount
-		Thread.sleep(SECONDS_PER_SONG);
+		Thread.sleep(SECONDS_PER_SONG * 1000);
 	    } catch (InterruptedException ex) {
 		ex.printStackTrace();
 	    }
@@ -165,13 +166,14 @@ public class AudioEngine implements Runnable {
     }
 
     private void switchSong() {
-	if (SONGS.length == 0) {
-	    return;
-	}
-	String s = SONGS[(int) (Math.random() * SONGS.length)];
+	String s = "audio/" + SONGS[(int) (Math.random() * SONGS.length)] + ".ogg";
 	if (DEBUG)
 	    System.out.println("Playing new song: " + s);
 	Music m = TinySound.loadMusic(s);
+	if (m == null) {
+	    System.err.println("Could not find Music: " + s);
+	    return;
+	}
 	m.setVolume(musicVolume);
 	m.play(false);
     }
