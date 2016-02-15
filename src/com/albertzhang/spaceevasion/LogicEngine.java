@@ -15,7 +15,7 @@ import kuusisto.tinysound.TinySound;
 public class LogicEngine implements Runnable {
 
     private static final int TICKS_PER_SECOND = 60;
-    private static final int MAX_ENEMIES = 40;
+    private static final int MAX_ENEMIES = 100;
     private static final double BASE_DIFFICULTY = 0.0070;
 
     private Thread runThread;
@@ -44,7 +44,7 @@ public class LogicEngine implements Runnable {
 	DEBUG = debug;
     }
 
-    public synchronized Map<String, ArrayList<Sprite>> getShapes() {
+    public Map<String, ArrayList<Sprite>> getShapes() {
 	return this.sprites;
     }
 
