@@ -10,5 +10,4 @@ local.properties
 .loadpath
 
 # Eclipse Core
-.project
 /target/
