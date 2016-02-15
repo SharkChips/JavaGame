@@ -214,7 +214,7 @@ public class LogicEngine implements Runnable {
 	    if (Math.abs(s.getX() - pX) < 91 && Math.abs(s.getY() - pY) < 91) {
 		if (s.intersects(pBounds)) {
 		    s.onCollideWithEntity(p); // Subtract player health if collides with player
-		    AudioEngine.playSound("Alarm");
+		    AudioEngine.playSoundContinuous("Alarm");
 		}
 	    }
 	}

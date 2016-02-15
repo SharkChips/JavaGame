@@ -18,6 +18,7 @@ public class AudioEngine implements Runnable {
     private static final int SECONDS_PER_SONG = 60;
     private static final String[] SONGS = {};
     private static HashMap<String, Sound> SOUNDS = new HashMap<>();
+    private static HashMap<String, Music> CONTINUOUS_SOUNDS = new HashMap<>();
 
     public AudioEngine(double musicVol, double soundVol, boolean debug) {
 	DEBUG = debug;
@@ -35,8 +36,8 @@ public class AudioEngine implements Runnable {
 
 	// Load Sounds
 	SOUNDS.put("Boom", TinySound.loadSound("audio/Boom.ogg"));
-	SOUNDS.put("Alarm", TinySound.loadSound("audio/Alarm.ogg"));
 	SOUNDS.put("Laser", TinySound.loadSound("audio/Laser.ogg"));
+	CONTINUOUS_SOUNDS.put("Alarm", TinySound.loadMusic("audio/Alarm.ogg"));
     }
 
     /**
@@ -137,6 +138,22 @@ public class AudioEngine implements Runnable {
 	SOUNDS.get(name).play();
     }
 
+    /**
+     * This method differs from {@code playSound} in that if the sound is already playing, the sound will not play again. Useful, for
+     * example, in the Alarm sound.
+     * 
+     * @param name
+     *            The name of the sound to be played
+     */
+    public static void playSoundContinuous(String name) {
+	Music m = CONTINUOUS_SOUNDS.get(name);
+	System.out.println("m.playing: " + m.playing());
+	System.out.println("m.done: " + m.done());
+	if (!m.playing() || m.done()) {
+	    m.play(false);
+	}
+    }
+
     private void switchSong() {
 	if (SONGS.length == 0) {
 	    return;
@@ -148,5 +165,4 @@ public class AudioEngine implements Runnable {
 	m.setVolume(musicVolume);
 	m.play(false);
     }
-
 }
