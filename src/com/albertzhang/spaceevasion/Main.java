@@ -35,7 +35,7 @@ public class Main extends JFrame {
 
 	// If we want to play music, make a AudioEngine
 	if (musicVol >= 0.01d) {
-	    AudioEngine music = new AudioEngine(musicVol, soundVol, audioDebug); // TODO: Enable debug once we make an option
+	    AudioEngine music = new AudioEngine(musicVol, soundVol, audioDebug);
 	    music.start();
 	}
 
