@@ -12,13 +12,13 @@ public class Enemy extends Sprite {
     private double theta = 0d;
 
     private Player p;
-    private int difficulty = 1;
+    private double difficulty = 1;
 
     public Enemy(String source) {
 	super((int) (Math.random() * Main.getFrames()[1].getWidth()), (int) (Math.random() * Main.getFrames()[1].getHeight()), source);
     }
 
-    public Enemy(int d, Player p) {
+    public Enemy(double d, Player p) {
 	super((int) (Math.random() * Main.getFrames()[1].getWidth()), (int) (Math.random() * Main.getFrames()[1].getHeight()), DEFAULT_IMAGE);
 	this.difficulty = d;
 	this.p = p;
@@ -36,9 +36,8 @@ public class Enemy extends Sprite {
     }
 
     @Override
-    public void onCollideWithEntity(Sprite s, Object... objects) {
-	Player p = (Player) s;
-	p.setHealth(p.getHealth() - BASE_DAMAGE_AMT * difficulty);
+    public void onCollideWithSprite(Sprite s) {
+	s.setHealth(s.getHealth() - BASE_DAMAGE_AMT * difficulty);
     }
 
     @Override

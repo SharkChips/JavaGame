@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Sprite {
+public abstract class Sprite {
 
     private BufferedImage image;
 
@@ -37,10 +37,6 @@ public class Sprite {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-    }
-
-    public void onCollideWithEntity(Sprite collidedwith, Object... additionalObjs) {
-	// This method is called when a sprite collides with the player
     }
 
     public double getHealth() {
@@ -90,4 +86,6 @@ public class Sprite {
     public boolean intersects(Rectangle2D bounds) {
 	return bounds.intersects(this.getBounds());
     }
+
+    public abstract void onCollideWithSprite(Sprite s);
 }

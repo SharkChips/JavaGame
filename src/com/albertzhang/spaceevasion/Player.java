@@ -28,6 +28,8 @@ public class Player extends Sprite {
 
     private Direction direction = Direction.NORTH;
 
+    private double DMG_AMT = 10;
+
     public Player(double x, double y) throws IOException {
 	super(x, y);
 	try {
@@ -128,5 +130,10 @@ public class Player extends Sprite {
 	    default:
 		throw new IllegalStateException("Direction not valid");
 	}
+    }
+
+    @Override
+    public void onCollideWithSprite(Sprite s) {
+	s.setHealth(s.getHealth() - DMG_AMT);
     }
 }

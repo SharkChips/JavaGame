@@ -27,7 +27,7 @@ public class LogicEngine implements Runnable {
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
     private ArrayList<DyingEnemy> dyingEnemies = new ArrayList<>();
     private Player p;
-    private int difficulty = 1;
+    private double difficulty = 1d;
     private int score = 0;
     private int width;
     private int height;
@@ -41,7 +41,7 @@ public class LogicEngine implements Runnable {
     }
 
     public LogicEngine(int difficulty, boolean debug) {
-	this(); // This makes the first enemy easy, but it's ok
+	this();
 	this.difficulty = difficulty;
 	DEBUG = debug;
     }
@@ -62,11 +62,11 @@ public class LogicEngine implements Runnable {
 	return p;
     }
 
-    public int getDifficulty() {
-	if (this.difficulty == 3) { // If insane difficulty
-	    return 10;
+    public double getDifficulty() {
+	if (Math.abs(this.difficulty - 3d) <= 0.1) { // If insane difficulty
+	    return 10d;
 	}
-	return this.difficulty;
+	return this.difficulty * 1.1;
     }
 
     public int getScore() {
@@ -236,7 +236,7 @@ public class LogicEngine implements Runnable {
 	    // 91 is the max distance between 2 touching 64px square sprites. TODO: Change this if sprite sizes change
 	    if (Math.abs(s.getX() - pX) < 91 && Math.abs(s.getY() - pY) < 91) {
 		if (s.intersects(pBounds)) {
-		    s.onCollideWithEntity(p); // Subtract player health if collides with player
+		    s.onCollideWithSprite(p); // Subtract player health if collides with player
 		    playAlarm = true;
 		}
 	    }
@@ -252,7 +252,7 @@ public class LogicEngine implements Runnable {
 		// 64 is the maximum distance between a 32x32 sprite and a 64x64 sprite. TODO: Change if sprites change
 		if (Math.abs(projX - en.getX()) < 64 && Math.abs(projY - en.getY()) < 64) {
 		    if (proj.intersects(en.getBounds())) {
-			proj.onCollideWithEntity(en); // Subtract player health if collides with player
+			proj.onCollideWithSprite(en); // Subtract player health if collides with player
 			projectiles.remove(index);
 			break;
 		    }
@@ -263,8 +263,8 @@ public class LogicEngine implements Runnable {
 	    }
 	}
 
-	// Make the difficulty a little harder each time (0.018 every minute)
-	difficulty += 0.000005;
+	// Make the difficulty a little harder each time (1.8 every minute)
+	difficulty += 0.0005 * difficulty;
     }
 
     /**

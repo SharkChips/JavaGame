@@ -27,4 +27,9 @@ public class DyingEnemy extends Sprite {
 	AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 	return op.filter(orig, null);
     }
+
+    @Override
+    public void onCollideWithSprite(Sprite s) {
+	// Do nothing because it's dead :(
+    }
 }

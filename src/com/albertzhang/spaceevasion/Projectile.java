@@ -30,8 +30,7 @@ public class Projectile extends Sprite {
 	this.setY(this.getY() + Math.cos(theta + Math.PI / 2) * MOV_SPEED);
     }
 
-    @Override
-    public void onCollideWithEntity(Sprite s, Object... objects) {
+    public void onCollideWithSprite(Sprite s) {
 	s.setHealth(s.getHealth() - DAMAGE_AMT);
     }
 
