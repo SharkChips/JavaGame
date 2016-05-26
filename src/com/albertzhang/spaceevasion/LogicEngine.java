@@ -20,8 +20,8 @@ public class LogicEngine implements Runnable {
 
     private Thread runThread;
 
-    private boolean isRunning = false;
-    private boolean isPaused = false;
+    boolean isRunning = false;
+    boolean isPaused = false;
     private boolean DEBUG = false;
 
     private Map<String, ArrayList<Sprite>> sprites = new HashMap<>();
@@ -194,8 +194,9 @@ public class LogicEngine implements Runnable {
 	    double oldSndVol = AudioEngine.getSoundVolume();
 	    AudioEngine.setMusicVolume(0);
 	    AudioEngine.setSoundVolume(0);
-	    JOptionPane.showMessageDialog(Main.getWindows()[1], "You lost with a score of " + getScore() + '!', Launcher.getName(), JOptionPane.INFORMATION_MESSAGE);
 	    this.pause();
+
+	    JOptionPane.showMessageDialog(Main.getWindows()[1], "You lost with a score of " + getScore() + '!', Launcher.getName(), JOptionPane.INFORMATION_MESSAGE);
 	    if (JOptionPane.showConfirmDialog(Main.getWindows()[1], "Would you like to play again?", Launcher.getName(), JOptionPane.YES_NO_OPTION,
 		    JOptionPane.PLAIN_MESSAGE) == JOptionPane.YES_OPTION) {
 		this.initSprites();

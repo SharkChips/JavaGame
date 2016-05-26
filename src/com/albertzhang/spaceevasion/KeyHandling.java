@@ -210,6 +210,13 @@ public class KeyHandling implements Runnable, KeyListener {
     }
 
     public void checkKeys() {
+	if (l.isPaused) {
+	    wPressed = false;
+	    aPressed = false;
+	    sPressed = false;
+	    dPressed = false;
+	}
+
 	if (wPressed) {
 	    if (aPressed) { // W&A
 		if (checkBounds() == Bounds.NORTH) {
