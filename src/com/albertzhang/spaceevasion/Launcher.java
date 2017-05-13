@@ -23,15 +23,11 @@ public class Launcher {
 
     private JFrame frame;
 
-    private static final String VERSION = "Beta 0.9";
+    public static final String VERSION = "Beta 0.9";
 
-    try {
-        private static final int BUILD = Integer.parseInt(Launcher.class.getPackage().getImplementationVersion());
-    } catch(NumberFormatException | NullPointerException e) {
-        private static final int BUILD = 0;
-    }
-
-    private static final String NAME = "Space Evasion " + VERSION + '-' + String.format("%04d", BUILD);
+    // These two can't be final or else javac will complain
+    public static int BUILD;
+    public static String NAME;
 
     public static String getName() {
 	return NAME;
@@ -55,12 +51,21 @@ public class Launcher {
      * Create the application.
      */
     public Launcher() {
-	initialize();
+        try {
+            BUILD = Integer.parseInt(Launcher.class.getPackage().getImplementationVersion());
+        } catch(Exception e) {
+            e.printStackTrace();
+            BUILD = -1;
+        }
+
+        NAME = "Space Evasion " + VERSION + '-' + String.format("%04d", BUILD);
+
+        initialize();
     }
 
     /**
      * Initialize the contents of the frame.
-     * 
+     *
      * @wbp.parser.entryPoint
      */
     @SuppressWarnings("serial")
