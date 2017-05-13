@@ -7,4 +7,4 @@ deployment:
   master:
     branch: master
     commands:
-      - mv bin/SpaceEvasion.jar $CIRCLE_ARTIFACTS
+      - mv bin/SpaceEvasion.jar $CIRCLE_ARTIFACTS/SpaceEvasion-$(CIRCLE_BUILD_NUM).jar
