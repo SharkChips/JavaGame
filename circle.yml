@@ -1,3 +1,10 @@
 machine:
+  timezone:
+    America/Chicago
   java:
     version: oraclejdk8
+deployment:
+  master:
+    branch: master
+    commands:
+      - mv bin/SpaceEvasion.jar $CIRCLE_ARTIFACTS
