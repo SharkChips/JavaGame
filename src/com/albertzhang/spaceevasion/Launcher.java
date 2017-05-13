@@ -24,7 +24,13 @@ public class Launcher {
     private JFrame frame;
 
     private static final String VERSION = "Beta 0.9";
-    private static final int BUILD = Integer.parseInt(Launcher.class.getPackage().getImplementationVersion() != null ? Launcher.class.getPackage().getImplementationVersion() : "0");
+
+    try {
+        private static final int BUILD = Integer.parseInt(Launcher.class.getPackage().getImplementationVersion());
+    } catch(NumberFormatException | NullPointerException e) {
+        private static final int BUILD = 0;
+    }
+
     private static final String NAME = "Space Evasion " + VERSION + '-' + String.format("%04d", BUILD);
 
     public static String getName() {
