@@ -1,9 +1,7 @@
 # Space Evasion
-[![Build Status](https://drone.io/github.com/SharkChips/SpaceEvasion/status.png)](https://drone.io/github.com/SharkChips/SpaceEvasion/latest)
-[![Preview builds](https://img.shields.io/badge/download-preview%20build-orange.svg?style=flat-square)](https://drone.io/github.com/SharkChips/SpaceEvasion/files/bin/SpaceEvasion.jar)
+[![CircleCI](https://circleci.com/gh/azhang66/SpaceEvasion.svg?style=shield)](https://circleci.com/gh/azhang66/SpaceEvasion)
 
-
-A game I'm working on. Download a [preview release](https://drone.io/github.com/SharkChips/SpaceEvasion/files/bin/SpaceEvasion.jar)!
+A game I'm working on. Go forth an evade space?!
 
 ### Controls
 
