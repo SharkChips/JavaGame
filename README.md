@@ -5,15 +5,15 @@
 
 A game I'm working on. Download a [preview release](https://drone.io/github.com/SharkChips/SpaceEvasion/files/bin/SpaceEvasion.jar)!
 
-###Controls
+### Controls
 
 - WASD to move
 - Space to shoot
 - Esc to pause/exit
  
-###Score
+### Score
 - 55 points per enemy destroyed
 - -5 points per laser shot used
 
-###Bugs
+### Bugs
 Submit an issue!
