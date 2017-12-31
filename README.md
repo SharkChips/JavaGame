@@ -1,7 +1,10 @@
 # Space Evasion
 [![CircleCI](https://circleci.com/gh/azhang66/SpaceEvasion.svg?style=shield)](https://circleci.com/gh/azhang66/SpaceEvasion)
+[![GitHub release](https://img.shields.io/github/release/azhang66/SpaceEvasion.svg)](https://github.com/azhang66/SpaceEvasion/releases/download/v0.9/SpaceEvasion-v0.9-beta.jar)
 
-A game I'm working on. Go forth and evade space?!
+A game I'm working on. Go forth and evade space?!?
+
+[Download a preview here (requires Java)](https://github.com/azhang66/SpaceEvasion/releases/download/v0.9/SpaceEvasion-v0.9-beta.jar)
 
 ### Controls
 
