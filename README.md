@@ -1,7 +1,7 @@
 # Space Evasion
 [![CircleCI](https://circleci.com/gh/azhang66/SpaceEvasion.svg?style=shield)](https://circleci.com/gh/azhang66/SpaceEvasion)
 
-A game I'm working on. Go forth an evade space?!
+A game I'm working on. Go forth and evade space?!
 
 ### Controls
 
